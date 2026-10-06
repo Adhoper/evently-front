@@ -1,3 +1,9 @@
+export type EventStatus =
+  | "Draft"
+  | "Published"
+  | "Cancelled"
+  | "Finished";
+
 export interface Event {
   id: number;
   title: string;
@@ -6,7 +12,7 @@ export interface Event {
   location: string;
   capacity: number;
   imageUrl: string | null;
-  status: string;
+  status: EventStatus;
   eventCategoryId: number;
   categoryName: string;
 }

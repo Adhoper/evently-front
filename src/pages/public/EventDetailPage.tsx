@@ -59,7 +59,7 @@ function EventDetailPage() {
       <main className="min-h-screen bg-zinc-50 py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="animate-pulse">
-            <div className="aspect-[16/6] rounded-3xl bg-zinc-200" />
+            <div className="aspect-16/6 rounded-3xl bg-zinc-200" />
 
             <div className="mt-10 h-12 w-2/3 rounded bg-zinc-200" />
           </div>
@@ -118,7 +118,7 @@ function EventDetailPage() {
           ← Volver a eventos
         </Link>
 
-        <div className="aspect-[16/7] overflow-hidden rounded-3xl bg-zinc-900 shadow-sm">
+        <div className="aspect-16/7 overflow-hidden rounded-3xl bg-zinc-900 shadow-sm">
           {event.imageUrl ? (
             <img
               src={event.imageUrl}
@@ -126,7 +126,7 @@ function EventDetailPage() {
               className="h-full w-full object-cover"
             />
           ) : (
-            <div className="flex h-full items-center justify-center bg-gradient-to-br from-zinc-700 via-zinc-900 to-black">
+            <div className="flex h-full items-center justify-center bg-linear-to-br from-zinc-700 via-zinc-900 to-black">
               <span className="text-2xl font-black tracking-[0.25em] text-white sm:text-4xl">
                 EVENTLY
               </span>

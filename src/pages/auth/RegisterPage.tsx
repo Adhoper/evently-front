@@ -1,7 +1,4 @@
-import {
-  useState,
-} from "react";
-
+import { useState } from "react";
 import {
   Link,
   useNavigate,
@@ -18,16 +15,27 @@ import {
 import axios from "axios";
 
 import {
+  Check,
+  Eye,
+  EyeOff,
+  Sparkles,
+} from "lucide-react";
+
+import {
+  motion,
+} from "motion/react";
+
+import {
   registerSchema,
+} from "../../schemas/authSchemas";
+
+import type {
+  RegisterFormData,
 } from "../../schemas/authSchemas";
 
 import {
   useAuth,
 } from "../../hooks/useAuth";
-
-import type {
-  RegisterRequest,
-} from "../../types/auth";
 
 function RegisterPage() {
   const navigate =
@@ -44,28 +52,65 @@ function RegisterPage() {
     null
   );
 
+  const [
+    showPassword,
+    setShowPassword,
+  ] = useState(false);
+
+  const [
+    showConfirmPassword,
+    setShowConfirmPassword,
+  ] = useState(false);
+
   const {
     register,
     handleSubmit,
+    watch,
     formState: {
       errors,
       isSubmitting,
     },
   } =
-    useForm<RegisterRequest>({
+    useForm<RegisterFormData>({
       resolver:
         zodResolver(
           registerSchema
         ),
     });
 
+  const password =
+    watch("password") ?? "";
+
+  const passwordRules = {
+    length:
+      password.length >= 8,
+
+    uppercase:
+      /[A-Z]/.test(password),
+
+    lowercase:
+      /[a-z]/.test(password),
+
+    number:
+      /[0-9]/.test(password),
+  };
+
   const onSubmit = async (
-    data: RegisterRequest
+    data: RegisterFormData
   ) => {
     try {
       setServerError(null);
 
-      await registerUser(data);
+      const {
+        confirmPassword,
+        ...registerData
+      } = data;
+
+      void confirmPassword;
+
+      await registerUser(
+        registerData
+      );
 
       navigate("/");
     } catch (error) {
@@ -90,146 +135,370 @@ function RegisterPage() {
   };
 
   return (
-    <main className="flex min-h-[calc(100vh-72px)] items-center justify-center bg-zinc-50 px-4 py-16">
-      <div className="w-full max-w-lg rounded-3xl border border-zinc-200 bg-white p-7 shadow-sm sm:p-9">
-        <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400">
-          Únete
-        </span>
+    <main className="relative flex min-h-[calc(100vh-72px)] items-center justify-center overflow-hidden bg-slate-50 px-4 py-16">
+      {/* Fondo decorativo */}
 
-        <h1 className="mt-2 text-3xl font-black tracking-tight">
-          Crear cuenta
-        </h1>
+      <motion.div
+        animate={{
+          x: [0, 30, 0],
+          y: [0, -20, 0],
+        }}
+        transition={{
+          duration: 9,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="pointer-events-none absolute -left-32 top-20 h-80 w-80 rounded-full bg-brand-300/25 blur-3xl"
+      />
 
-        <p className="mt-3 text-sm text-zinc-500">
-          Crea tu cuenta para obtener
-          entradas y descubrir eventos.
-        </p>
+      <motion.div
+        animate={{
+          x: [0, -20, 0],
+          y: [0, 30, 0],
+        }}
+        transition={{
+          duration: 11,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-accent-300/20 blur-3xl"
+      />
 
-        <form
-          onSubmit={
-            handleSubmit(onSubmit)
-          }
-          className="mt-8 space-y-5"
-        >
-          <div className="grid gap-5 sm:grid-cols-2">
-            <div>
-              <label className="text-sm font-semibold text-zinc-700">
-                Nombre
-              </label>
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 24,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.45,
+        }}
+        className="relative w-full max-w-lg"
+      >
+        <div className="rounded-[28px] border border-slate-200/80 bg-white/90 p-7 shadow-[0_20px_70px_rgba(15,23,42,0.10)] backdrop-blur-xl sm:p-10">
+          <div className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-3 py-1.5 text-xs font-bold text-brand-700">
+            <Sparkles size={14} />
 
-              <input
-                {...register(
-                  "firstName"
-                )}
-                className="mt-2 w-full rounded-xl border border-zinc-300 px-4 py-3 text-sm outline-none transition focus:border-zinc-950 focus:ring-2 focus:ring-zinc-950/10"
-              />
-
-              {errors.firstName && (
-                <p className="mt-2 text-sm text-red-600">
-                  {
-                    errors.firstName
-                      .message
-                  }
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="text-sm font-semibold text-zinc-700">
-                Apellido
-              </label>
-
-              <input
-                {...register(
-                  "lastName"
-                )}
-                className="mt-2 w-full rounded-xl border border-zinc-300 px-4 py-3 text-sm outline-none transition focus:border-zinc-950 focus:ring-2 focus:ring-zinc-950/10"
-              />
-
-              {errors.lastName && (
-                <p className="mt-2 text-sm text-red-600">
-                  {
-                    errors.lastName
-                      .message
-                  }
-                </p>
-              )}
-            </div>
+            Únete a Evently
           </div>
 
-          <div>
-            <label className="text-sm font-semibold text-zinc-700">
-              Correo electrónico
-            </label>
+          <h1 className="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+            Crea tu cuenta
+          </h1>
 
-            <input
-              type="email"
-              {...register("email")}
-              className="mt-2 w-full rounded-xl border border-zinc-300 px-4 py-3 text-sm outline-none transition focus:border-zinc-950 focus:ring-2 focus:ring-zinc-950/10"
-            />
+          <p className="mt-3 leading-7 text-slate-500">
+            Descubre eventos,
+            administra tus entradas y
+            conviértete en organizador
+            cuando quieras.
+          </p>
 
-            {errors.email && (
-              <p className="mt-2 text-sm text-red-600">
-                {
-                  errors.email.message
-                }
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label className="text-sm font-semibold text-zinc-700">
-              Contraseña
-            </label>
-
-            <input
-              type="password"
-              {...register(
-                "password"
-              )}
-              className="mt-2 w-full rounded-xl border border-zinc-300 px-4 py-3 text-sm outline-none transition focus:border-zinc-950 focus:ring-2 focus:ring-zinc-950/10"
-            />
-
-            {errors.password && (
-              <p className="mt-2 text-sm text-red-600">
-                {
-                  errors.password
-                    .message
-                }
-              </p>
-            )}
-          </div>
-
-          {serverError && (
-            <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-              {serverError}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={
-              isSubmitting
+          <form
+            onSubmit={
+              handleSubmit(
+                onSubmit
+              )
             }
-            className="w-full rounded-xl bg-zinc-950 px-5 py-3 font-bold text-white transition hover:bg-zinc-800 disabled:opacity-60"
+            className="mt-8 space-y-5"
           >
-            {isSubmitting
-              ? "Creando cuenta..."
-              : "Crear cuenta"}
-          </button>
-        </form>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label className="text-sm font-bold text-slate-700">
+                  Nombre
+                </label>
 
-        <p className="mt-7 text-center text-sm text-zinc-500">
-          ¿Ya tienes cuenta?{" "}
-          <Link
-            to="/login"
-            className="font-bold text-zinc-950"
-          >
-            Iniciar sesión
-          </Link>
-        </p>
-      </div>
+                <input
+                  {...register(
+                    "firstName"
+                  )}
+                  placeholder="Adrian"
+                  className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+                />
+
+                {errors.firstName && (
+                  <p className="mt-2 text-sm font-medium text-red-600">
+                    {
+                      errors
+                        .firstName
+                        .message
+                    }
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label className="text-sm font-bold text-slate-700">
+                  Apellido
+                </label>
+
+                <input
+                  {...register(
+                    "lastName"
+                  )}
+                  placeholder="Curet"
+                  className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+                />
+
+                {errors.lastName && (
+                  <p className="mt-2 text-sm font-medium text-red-600">
+                    {
+                      errors
+                        .lastName
+                        .message
+                    }
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <label className="text-sm font-bold text-slate-700">
+                Correo electrónico
+              </label>
+
+              <input
+                type="email"
+                {...register(
+                  "email"
+                )}
+                placeholder="correo@ejemplo.com"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+              />
+
+              {errors.email && (
+                <p className="mt-2 text-sm font-medium text-red-600">
+                  {
+                    errors.email
+                      .message
+                  }
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="text-sm font-bold text-slate-700">
+                Contraseña
+              </label>
+
+              <div className="relative mt-2">
+                <input
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
+                  {...register(
+                    "password"
+                  )}
+                  placeholder="••••••••"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3.5 pr-12 text-sm outline-none transition-all duration-200 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+                />
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setShowPassword(
+                      (current) =>
+                        !current
+                    )
+                  }
+                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+                  aria-label="Mostrar contraseña"
+                >
+                  {showPassword ? (
+                    <EyeOff
+                      size={18}
+                    />
+                  ) : (
+                    <Eye
+                      size={18}
+                    />
+                  )}
+                </button>
+              </div>
+
+              {errors.password && (
+                <p className="mt-2 text-sm font-medium text-red-600">
+                  {
+                    errors.password
+                      .message
+                  }
+                </p>
+              )}
+
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <PasswordRule
+                  valid={
+                    passwordRules.length
+                  }
+                >
+                  8 caracteres
+                </PasswordRule>
+
+                <PasswordRule
+                  valid={
+                    passwordRules.uppercase
+                  }
+                >
+                  Una mayúscula
+                </PasswordRule>
+
+                <PasswordRule
+                  valid={
+                    passwordRules.lowercase
+                  }
+                >
+                  Una minúscula
+                </PasswordRule>
+
+                <PasswordRule
+                  valid={
+                    passwordRules.number
+                  }
+                >
+                  Un número
+                </PasswordRule>
+              </div>
+            </div>
+
+            <div>
+              <label className="text-sm font-bold text-slate-700">
+                Repetir contraseña
+              </label>
+
+              <div className="relative mt-2">
+                <input
+                  type={
+                    showConfirmPassword
+                      ? "text"
+                      : "password"
+                  }
+                  {...register(
+                    "confirmPassword"
+                  )}
+                  placeholder="••••••••"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3.5 pr-12 text-sm outline-none transition-all duration-200 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+                />
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setShowConfirmPassword(
+                      (current) =>
+                        !current
+                    )
+                  }
+                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff
+                      size={18}
+                    />
+                  ) : (
+                    <Eye
+                      size={18}
+                    />
+                  )}
+                </button>
+              </div>
+
+              {errors.confirmPassword && (
+                <p className="mt-2 text-sm font-medium text-red-600">
+                  {
+                    errors
+                      .confirmPassword
+                      .message
+                  }
+                </p>
+              )}
+            </div>
+
+            {serverError && (
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: -5,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700"
+              >
+                {serverError}
+              </motion.div>
+            )}
+
+            <motion.button
+              whileHover={{
+                y: -2,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
+              type="submit"
+              disabled={
+                isSubmitting
+              }
+              className="group relative w-full overflow-hidden rounded-xl bg-brand-600 px-5 py-3.5 font-bold text-white shadow-lg shadow-brand-600/20 transition hover:bg-brand-700 disabled:opacity-60"
+            >
+              <span className="relative z-10">
+                {isSubmitting
+                  ? "Creando cuenta..."
+                  : "Crear cuenta"}
+              </span>
+
+              <div className="absolute inset-y-0 -left-32 w-24 rotate-12 bg-white/20 blur-xl transition-all duration-700 group-hover:left-[120%]" />
+            </motion.button>
+          </form>
+
+          <p className="mt-7 text-center text-sm text-slate-500">
+            ¿Ya tienes una cuenta?{" "}
+            <Link
+              to="/login"
+              className="font-bold text-brand-600 transition hover:text-brand-700"
+            >
+              Iniciar sesión
+            </Link>
+          </p>
+        </div>
+      </motion.div>
     </main>
+  );
+}
+
+interface PasswordRuleProps {
+  valid: boolean;
+  children: React.ReactNode;
+}
+
+function PasswordRule({
+  valid,
+  children,
+}: PasswordRuleProps) {
+  return (
+    <div
+      className={`flex items-center gap-2 text-xs font-semibold transition ${
+        valid
+          ? "text-emerald-600"
+          : "text-slate-400"
+      }`}
+    >
+      <span
+        className={`grid h-4 w-4 place-items-center rounded-full transition ${
+          valid
+            ? "bg-emerald-100"
+            : "bg-slate-100"
+        }`}
+      >
+        <Check size={10} />
+      </span>
+
+      {children}
+    </div>
   );
 }
 
