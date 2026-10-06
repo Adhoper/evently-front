@@ -3,13 +3,22 @@ import {
   NavLink,
 } from "react-router-dom";
 
+import {
+  useAuth,
+} from "../hooks/useAuth";
+
 function Navbar() {
+  const {
+    user,
+    logout,
+  } = useAuth();
+
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex h-18 max-w-7xl items-center gap-10 px-4 sm:px-6 lg:px-8">
         <Link
           to="/"
-          className="text-xl font-black tracking-tight text-zinc-950"
+          className="text-xl font-black tracking-tight"
         >
           EVENTLY
         </Link>
@@ -20,7 +29,7 @@ function Navbar() {
             className={({ isActive }) =>
               isActive
                 ? "text-sm font-semibold text-zinc-950"
-                : "text-sm font-medium text-zinc-500 transition hover:text-zinc-950"
+                : "text-sm font-medium text-zinc-500 hover:text-zinc-950"
             }
           >
             Inicio
@@ -31,7 +40,7 @@ function Navbar() {
             className={({ isActive }) =>
               isActive
                 ? "text-sm font-semibold text-zinc-950"
-                : "text-sm font-medium text-zinc-500 transition hover:text-zinc-950"
+                : "text-sm font-medium text-zinc-500 hover:text-zinc-950"
             }
           >
             Eventos
@@ -39,13 +48,39 @@ function Navbar() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
-          <button className="hidden rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50 sm:block">
-            Iniciar sesión
-          </button>
+          {!user ? (
+            <>
+              <Link
+                to="/login"
+                className="hidden rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-semibold hover:bg-zinc-50 sm:inline-flex"
+              >
+                Iniciar sesión
+              </Link>
 
-          <button className="rounded-xl bg-zinc-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-zinc-800">
-            Registrarse
-          </button>
+              <Link
+                to="/register"
+                className="rounded-xl bg-zinc-950 px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-800"
+              >
+                Registrarse
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/account"
+                className="rounded-xl px-4 py-2.5 text-sm font-semibold hover:bg-zinc-100"
+              >
+                {user.firstName}
+              </Link>
+
+              <button
+                onClick={logout}
+                className="rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-semibold hover:bg-zinc-50"
+              >
+                Salir
+              </button>
+            </>
+          )}
         </div>
       </div>
     </header>

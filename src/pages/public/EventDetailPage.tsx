@@ -10,7 +10,7 @@ import {
 
 
 import type { EventDetail } from "../../types/event";
-import { getPublicEvents } from "../../services/eventService";
+import { getPublicEventById  } from "../../services/eventService";
 
 function EventDetailPage() {
   const { id } = useParams();
