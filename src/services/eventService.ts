@@ -9,9 +9,7 @@ import type {
 export const getPublicEvents =
   async (): Promise<Event[]> => {
     const response =
-      await api.get<Event[]>(
-        "/events"
-      );
+      await api.get<Event[]>("/events");
 
     return response.data;
   };
@@ -58,6 +56,44 @@ export const createEvent =
       await api.post<EventDetail>(
         "/events",
         data
+      );
+
+    return response.data;
+  };
+
+export const updateEvent =
+  async (
+    id: number,
+    data: CreateEventRequest
+  ): Promise<EventDetail> => {
+    const response =
+      await api.put<EventDetail>(
+        `/events/${id}`,
+        data
+      );
+
+    return response.data;
+  };
+
+export const publishEvent =
+  async (
+    id: number
+  ): Promise<EventDetail> => {
+    const response =
+      await api.patch<EventDetail>(
+        `/events/${id}/publish`
+      );
+
+    return response.data;
+  };
+
+export const cancelEvent =
+  async (
+    id: number
+  ): Promise<EventDetail> => {
+    const response =
+      await api.patch<EventDetail>(
+        `/events/${id}/cancel`
       );
 
     return response.data;

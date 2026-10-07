@@ -17,6 +17,7 @@ import RoleProtectedRoute from "../components/RoleProtectedRoute";
 import OrganizerDashboardPage from "../components/organizer/OrganizerDashboardPage";
 import MyEventsPage from "../components/organizer/MyEventsPage";
 import CreateEventPage from "../components/organizer/CreateEventPage";
+import EditEventPage from "../components/organizer/EditEventPage";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
       {
         path: "events/create",
         element: <CreateEventPage />,
+      },
+      {
+        path: "events/:id/edit",
+        element: <EditEventPage />,
       },
     ],
   },
