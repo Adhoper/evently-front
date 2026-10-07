@@ -18,14 +18,14 @@ export function PageLoader({
   return (
     <div className="flex min-h-[45vh] items-center justify-center px-4">
       <div className="flex flex-col items-center text-center">
-        <div className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-50 text-brand-600">
+        <div className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-50 dark:bg-brand-900/25 text-brand-600">
           <LoaderCircle
             size={26}
             className="animate-spin"
           />
         </div>
 
-        <p className="mt-4 text-sm font-semibold text-slate-500">
+        <p className="mt-4 text-sm font-semibold text-slate-500 dark:text-slate-400">
           {text}
         </p>
       </div>
@@ -55,17 +55,17 @@ export function ErrorState({
         opacity: 1,
         y: 0,
       }}
-      className="rounded-3xl border border-red-100 bg-red-50/70 px-5 py-12 text-center sm:px-8"
+      className="rounded-3xl border border-red-100 dark:border-red-500/20 bg-red-50/70 dark:bg-red-500/10 px-5 py-12 text-center sm:px-8"
     >
-      <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-red-100 text-red-600">
+      <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-red-100 dark:bg-red-500/15 text-red-600 dark:text-red-400">
         <AlertCircle size={25} />
       </div>
 
-      <h3 className="mt-5 text-xl font-black text-slate-950">
+      <h3 className="mt-5 text-xl font-black text-slate-950 dark:text-slate-50">
         {title}
       </h3>
 
-      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-600">
+      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-600 dark:text-slate-300">
         {description}
       </p>
 
@@ -102,17 +102,17 @@ export function EmptyState({
         opacity: 1,
         y: 0,
       }}
-      className="rounded-3xl border border-dashed border-slate-300 bg-white px-5 py-16 text-center shadow-sm"
+      className="rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-16 text-center shadow-sm"
     >
-      <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-50 text-brand-600">
+      <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-50 dark:bg-brand-900/25 text-brand-600">
         <CalendarSearch size={28} />
       </div>
 
-      <h3 className="mt-5 text-xl font-black text-slate-950">
+      <h3 className="mt-5 text-xl font-black text-slate-950 dark:text-slate-50">
         {title}
       </h3>
 
-      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500 dark:text-slate-400">
         {description}
       </p>
     </motion.div>

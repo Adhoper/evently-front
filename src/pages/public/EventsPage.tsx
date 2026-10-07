@@ -195,12 +195,12 @@ function EventsPage() {
   // ============================================================
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
       {/* ======================================================
           HEADER
           ====================================================== */}
 
-      <section className="border-b border-slate-200 bg-white">
+      <section className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
           <motion.div
             initial={{
@@ -217,12 +217,12 @@ function EventsPage() {
               Explora
             </span>
 
-            <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
+            <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 dark:text-slate-50 sm:text-5xl">
               Encuentra tu próximo
               evento.
             </h1>
 
-            <p className="mt-4 text-base leading-7 text-slate-500 sm:text-lg">
+            <p className="mt-4 text-base leading-7 text-slate-500 dark:text-slate-400 sm:text-lg">
               Busca por nombre,
               ubicación o explora por
               categoría.
@@ -254,7 +254,7 @@ function EventsPage() {
                   )
                 }
                 placeholder="Buscar evento o ubicación..."
-                className="h-13 w-full rounded-2xl border border-slate-200 bg-slate-50 pl-12 pr-4 text-sm font-medium text-slate-950 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+                className="h-13 w-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 pl-12 pr-4 text-sm font-medium text-slate-950 dark:text-slate-50 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
               />
             </div>
 
@@ -278,7 +278,7 @@ function EventsPage() {
                       .value
                   )
                 }
-                className="h-13 w-full cursor-pointer appearance-none rounded-2xl border border-slate-200 bg-slate-50 pl-12 pr-10 text-sm font-bold text-slate-700 outline-none transition hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+                className="h-13 w-full cursor-pointer appearance-none rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 pl-12 pr-10 text-sm font-bold text-slate-700 dark:text-slate-200 outline-none transition hover:border-slate-300 focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
               >
                 <option value="all">
                   Todas las categorías
@@ -315,8 +315,8 @@ function EventsPage() {
           {!loading &&
             !error && (
               <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-sm font-semibold text-slate-500">
-                  <strong className="text-slate-950">
+                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+                  <strong className="text-slate-950 dark:text-slate-50">
                     {
                       filteredEvents.length
                     }
@@ -425,18 +425,18 @@ function EventsPageSkeleton() {
       ].map((item) => (
         <div
           key={item}
-          className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"
+          className="overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
         >
-          <div className="aspect-[16/10] animate-pulse bg-slate-200" />
+          <div className="aspect-16/10 animate-pulse bg-slate-200 dark:bg-slate-700" />
 
           <div className="space-y-4 p-6">
-            <div className="h-6 w-2/3 animate-pulse rounded bg-slate-200" />
+            <div className="h-6 w-2/3 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
 
-            <div className="h-4 w-1/2 animate-pulse rounded bg-slate-200" />
+            <div className="h-4 w-1/2 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
 
-            <div className="h-4 w-3/4 animate-pulse rounded bg-slate-200" />
+            <div className="h-4 w-3/4 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
 
-            <div className="h-11 w-full animate-pulse rounded-xl bg-slate-200" />
+            <div className="h-11 w-full animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
           </div>
         </div>
       ))}

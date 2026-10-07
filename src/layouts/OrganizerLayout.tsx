@@ -21,14 +21,16 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  Sparkles,
   UserCircle,
   X,
-  Sparkles,
 } from "lucide-react";
 
 import {
   useAuth,
 } from "../hooks/useAuth";
+
+import ThemeToggle from "../components/ui/ThemeToggle";
 
 const navigation = [
   {
@@ -37,14 +39,12 @@ const navigation = [
     icon: LayoutDashboard,
     end: true,
   },
-
   {
     label: "Mis eventos",
     to: "/organizer/events",
     icon: CalendarDays,
     end: true,
   },
-
   {
     label: "Crear evento",
     to: "/organizer/events/create",
@@ -74,7 +74,7 @@ function OrganizerLayout() {
 
   const sidebarContent = (
     <>
-      <div className="flex h-[76px] items-center border-b border-slate-800/80 px-6">
+      <div className="flex h-19 items-center border-b border-slate-800/80 px-6">
         <Link
           to="/"
           className="flex items-center gap-3"
@@ -138,9 +138,7 @@ function OrganizerLayout() {
                           size={18}
                         />
 
-                        {
-                          item.label
-                        }
+                        {item.label}
                       </div>
 
                       <ChevronRight
@@ -176,6 +174,22 @@ function OrganizerLayout() {
       </div>
 
       <div className="border-t border-slate-800/80 p-4">
+        {/* DESKTOP THEME CONTROL */}
+
+        <div className="mb-3 flex items-center justify-between rounded-xl bg-slate-800/70 px-3 py-2.5">
+          <div>
+            <p className="text-xs font-bold text-slate-300">
+              Apariencia
+            </p>
+
+            <p className="mt-0.5 text-[10px] text-slate-500">
+              Claro / oscuro
+            </p>
+          </div>
+
+          <ThemeToggle />
+        </div>
+
         <div className="mb-3 rounded-2xl bg-slate-800/70 p-4">
           <div className="flex items-center gap-3">
             <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-500/15 font-black text-brand-400">
@@ -186,12 +200,8 @@ function OrganizerLayout() {
 
             <div className="min-w-0">
               <p className="truncate text-sm font-bold text-white">
-                {
-                  user?.firstName
-                }{" "}
-                {
-                  user?.lastName
-                }
+                {user?.firstName}{" "}
+                {user?.lastName}
               </p>
 
               <p className="truncate text-xs text-slate-500">
@@ -202,9 +212,7 @@ function OrganizerLayout() {
         </div>
 
         <button
-          onClick={
-            handleLogout
-          }
+          onClick={handleLogout}
           className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-slate-400 transition hover:bg-red-500/10 hover:text-red-400"
         >
           <LogOut
@@ -218,7 +226,7 @@ function OrganizerLayout() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 text-slate-950 transition-colors dark:bg-slate-950 dark:text-slate-50">
       {/* SIDEBAR DESKTOP */}
 
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[270px] flex-col bg-slate-950 lg:flex">
@@ -227,24 +235,29 @@ function OrganizerLayout() {
 
       {/* HEADER MOBILE */}
 
-      <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur-xl lg:hidden">
+      <header className="sticky top-0 z-30 flex h-17 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/90 lg:hidden">
         <Link
           to="/"
-          className="font-black tracking-tight text-slate-950"
+          className="font-black tracking-tight text-slate-950 dark:text-white"
         >
           EVENTLY
         </Link>
 
-        <button
-          onClick={() =>
-            setMobileMenuOpen(
-              true
-            )
-          }
-          className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50"
-        >
-          <Menu size={20} />
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+
+          <button
+            onClick={() =>
+              setMobileMenuOpen(
+                true
+              )
+            }
+            className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+            aria-label="Abrir menú"
+          >
+            <Menu size={20} />
+          </button>
+        </div>
       </header>
 
       {/* SIDEBAR MOBILE */}
@@ -267,7 +280,7 @@ function OrganizerLayout() {
                   false
                 )
               }
-              className="fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm lg:hidden"
             />
 
             <motion.aside
@@ -294,6 +307,7 @@ function OrganizerLayout() {
                   )
                 }
                 className="absolute right-4 top-5 z-10 grid h-9 w-9 place-items-center rounded-xl bg-slate-800 text-slate-300 transition hover:text-white"
+                aria-label="Cerrar menú"
               >
                 <X
                   size={18}

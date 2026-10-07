@@ -29,6 +29,8 @@ import {
   useAuth,
 } from "../hooks/useAuth";
 
+import ThemeToggle from "./ui/ThemeToggle";
+
 function Navbar() {
   const {
     user,
@@ -44,10 +46,9 @@ function Navbar() {
     setMobileOpen,
   ] = useState(false);
 
-  const closeMobile =
-    () => {
-      setMobileOpen(false);
-    };
+  const closeMobile = () => {
+    setMobileOpen(false);
+  };
 
   const handleLogout = () => {
     logout();
@@ -55,22 +56,21 @@ function Navbar() {
     navigate("/");
   };
 
-  const navLinkClasses =
-    ({
-      isActive,
-    }: {
-      isActive: boolean;
-    }) =>
-      `relative text-sm font-bold transition ${
-        isActive
-          ? "text-brand-600"
-          : "text-slate-600 hover:text-slate-950"
-      }`;
+  const navLinkClasses = ({
+    isActive,
+  }: {
+    isActive: boolean;
+  }) =>
+    `relative text-sm font-bold transition ${
+      isActive
+        ? "text-brand-600 dark:text-brand-400"
+        : "text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white"
+    }`;
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
-        <div className="mx-auto flex h-[72px] max-w-7xl items-center px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl dark:border-slate-800/80 dark:bg-slate-950/90">
+        <div className="mx-auto flex h-18 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
           {/* BRAND */}
 
           <Link
@@ -84,7 +84,7 @@ function Navbar() {
             </div>
 
             <div className="leading-none">
-              <p className="text-lg font-black tracking-tight text-slate-950">
+              <p className="text-lg font-black tracking-tight text-slate-950 dark:text-white">
                 EVENTLY
               </p>
 
@@ -98,18 +98,14 @@ function Navbar() {
             <NavLink
               to="/"
               end
-              className={
-                navLinkClasses
-              }
+              className={navLinkClasses}
             >
               Inicio
             </NavLink>
 
             <NavLink
               to="/events"
-              className={
-                navLinkClasses
-              }
+              className={navLinkClasses}
             >
               Eventos
             </NavLink>
@@ -118,12 +114,14 @@ function Navbar() {
           {/* DESKTOP ACTIONS */}
 
           <div className="ml-auto hidden items-center gap-2 sm:flex">
+            <ThemeToggle />
+
             {!loading &&
               !user && (
                 <>
                   <Link
                     to="/login"
-                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:bg-slate-100 hover:text-slate-950"
+                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
                   >
                     <LogIn
                       size={16}
@@ -152,7 +150,7 @@ function Navbar() {
                     "Organizer" && (
                     <Link
                       to="/organizer"
-                      className="inline-flex items-center gap-2 rounded-xl bg-brand-50 px-4 py-2.5 text-sm font-black text-brand-700 transition hover:bg-brand-100"
+                      className="inline-flex items-center gap-2 rounded-xl bg-brand-50 px-4 py-2.5 text-sm font-black text-brand-700 transition hover:bg-brand-100 dark:bg-brand-900/25 dark:text-brand-300 dark:hover:bg-brand-900/40"
                     >
                       <LayoutDashboard
                         size={16}
@@ -164,26 +162,22 @@ function Navbar() {
 
                   <Link
                     to="/account"
-                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-100"
+                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
                   >
-                    <div className="grid h-7 w-7 place-items-center rounded-lg bg-slate-950 text-xs font-black text-white">
+                    <div className="grid h-7 w-7 place-items-center rounded-lg bg-slate-950 text-xs font-black text-white dark:bg-brand-600">
                       {user.firstName
                         .charAt(0)
                         .toUpperCase()}
                     </div>
 
                     <span className="hidden lg:inline">
-                      {
-                        user.firstName
-                      }
+                      {user.firstName}
                     </span>
                   </Link>
 
                   <button
-                    onClick={
-                      handleLogout
-                    }
-                    className="grid h-10 w-10 place-items-center rounded-xl text-slate-400 transition hover:bg-red-50 hover:text-red-600"
+                    onClick={handleLogout}
+                    className="grid h-10 w-10 place-items-center rounded-xl text-slate-400 transition hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/10 dark:hover:text-red-400"
                     aria-label="Cerrar sesión"
                   >
                     <LogOut
@@ -194,20 +188,22 @@ function Navbar() {
               )}
           </div>
 
-          {/* MOBILE BUTTON */}
+          {/* MOBILE ACTIONS */}
 
-          <button
-            type="button"
-            onClick={() =>
-              setMobileOpen(
-                true
-              )
-            }
-            className="ml-auto grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50 sm:hidden"
-            aria-label="Abrir menú"
-          >
-            <Menu size={20} />
-          </button>
+          <div className="ml-auto flex items-center gap-2 sm:hidden">
+            <ThemeToggle />
+
+            <button
+              type="button"
+              onClick={() =>
+                setMobileOpen(true)
+              }
+              className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+              aria-label="Abrir menú"
+            >
+              <Menu size={20} />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -226,10 +222,8 @@ function Navbar() {
               exit={{
                 opacity: 0,
               }}
-              onClick={
-                closeMobile
-              }
-              className="fixed inset-0 z-[70] bg-slate-950/45 backdrop-blur-sm sm:hidden"
+              onClick={closeMobile}
+              className="fixed inset-0 z-70 bg-slate-950/55 backdrop-blur-sm sm:hidden"
             />
 
             <motion.div
@@ -247,9 +241,9 @@ function Navbar() {
                 stiffness: 300,
                 damping: 30,
               }}
-              className="fixed inset-y-0 right-0 z-[80] flex w-[min(88vw,350px)] flex-col bg-white shadow-2xl sm:hidden"
+              className="fixed inset-y-0 right-0 z-80 flex w-[min(88vw,350px)] flex-col bg-white shadow-2xl dark:bg-slate-900"
             >
-              <div className="flex h-[72px] items-center justify-between border-b border-slate-200 px-5">
+              <div className="flex h-18 items-center justify-between border-b border-slate-200 px-5 dark:border-slate-800">
                 <div className="flex items-center gap-2.5">
                   <div className="grid h-9 w-9 place-items-center rounded-xl bg-brand-600 text-white">
                     <Sparkles
@@ -257,16 +251,15 @@ function Navbar() {
                     />
                   </div>
 
-                  <span className="font-black">
+                  <span className="font-black text-slate-950 dark:text-white">
                     EVENTLY
                   </span>
                 </div>
 
                 <button
-                  onClick={
-                    closeMobile
-                  }
-                  className="grid h-10 w-10 place-items-center rounded-xl bg-slate-100 text-slate-600"
+                  onClick={closeMobile}
+                  className="grid h-10 w-10 place-items-center rounded-xl bg-slate-100 text-slate-600 transition hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                  aria-label="Cerrar menú"
                 >
                   <X size={19} />
                 </button>
@@ -274,7 +267,7 @@ function Navbar() {
 
               <div className="flex flex-1 flex-col overflow-y-auto p-5">
                 {user && (
-                  <div className="mb-6 rounded-2xl bg-slate-950 p-5 text-white">
+                  <div className="mb-6 rounded-2xl bg-slate-950 p-5 text-white dark:bg-slate-800">
                     <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-600 text-sm font-black">
                       {user.firstName
                         .charAt(0)
@@ -282,12 +275,8 @@ function Navbar() {
                     </div>
 
                     <p className="mt-4 font-black">
-                      {
-                        user.firstName
-                      }{" "}
-                      {
-                        user.lastName
-                      }
+                      {user.firstName}{" "}
+                      {user.lastName}
                     </p>
 
                     <p className="mt-1 truncate text-xs text-slate-400">
@@ -299,36 +288,24 @@ function Navbar() {
                 <nav className="space-y-2">
                   <MobileLink
                     to="/"
-                    icon={
-                      Sparkles
-                    }
+                    icon={Sparkles}
                     label="Inicio"
-                    onClick={
-                      closeMobile
-                    }
+                    onClick={closeMobile}
                   />
 
                   <MobileLink
                     to="/events"
-                    icon={
-                      CalendarDays
-                    }
+                    icon={CalendarDays}
                     label="Eventos"
-                    onClick={
-                      closeMobile
-                    }
+                    onClick={closeMobile}
                   />
 
                   {user && (
                     <MobileLink
                       to="/account"
-                      icon={
-                        User
-                      }
+                      icon={User}
                       label="Mi cuenta"
-                      onClick={
-                        closeMobile
-                      }
+                      onClick={closeMobile}
                     />
                   )}
 
@@ -336,26 +313,20 @@ function Navbar() {
                     "Organizer" && (
                     <MobileLink
                       to="/organizer"
-                      icon={
-                        LayoutDashboard
-                      }
+                      icon={LayoutDashboard}
                       label="Panel de organizador"
-                      onClick={
-                        closeMobile
-                      }
+                      onClick={closeMobile}
                     />
                   )}
                 </nav>
 
-                <div className="mt-auto border-t border-slate-200 pt-5">
+                <div className="mt-auto border-t border-slate-200 pt-5 dark:border-slate-800">
                   {!user ? (
                     <div className="space-y-3">
                       <Link
                         to="/login"
-                        onClick={
-                          closeMobile
-                        }
-                        className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3.5 text-sm font-bold text-slate-700"
+                        onClick={closeMobile}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
                       >
                         <LogIn
                           size={17}
@@ -366,9 +337,7 @@ function Navbar() {
 
                       <Link
                         to="/register"
-                        onClick={
-                          closeMobile
-                        }
+                        onClick={closeMobile}
                         className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-3.5 text-sm font-black text-white"
                       >
                         <UserPlus
@@ -380,10 +349,8 @@ function Navbar() {
                     </div>
                   ) : (
                     <button
-                      onClick={
-                        handleLogout
-                      }
-                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-50 px-4 py-3.5 text-sm font-black text-red-600"
+                      onClick={handleLogout}
+                      className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-50 px-4 py-3.5 text-sm font-black text-red-600 dark:bg-red-500/10 dark:text-red-400"
                     >
                       <LogOut
                         size={17}
@@ -424,8 +391,8 @@ function MobileLink({
       }) =>
         `flex items-center gap-3 rounded-xl px-4 py-3.5 text-sm font-bold transition ${
           isActive
-            ? "bg-brand-50 text-brand-700"
-            : "text-slate-600 hover:bg-slate-100"
+            ? "bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300"
+            : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
         }`
       }
     >

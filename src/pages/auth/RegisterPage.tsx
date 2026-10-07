@@ -6,6 +6,7 @@ import {
 
 import {
   useForm,
+  useWatch,
 } from "react-hook-form";
 
 import {
@@ -65,7 +66,7 @@ function RegisterPage() {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: {
       errors,
       isSubmitting,
@@ -79,7 +80,10 @@ function RegisterPage() {
     });
 
   const password =
-    watch("password") ?? "";
+    useWatch({
+      control,
+      name: "password",
+    }) ?? "";
 
   const passwordRules = {
     length:
@@ -135,7 +139,7 @@ function RegisterPage() {
   };
 
   return (
-    <main className="relative flex min-h-[calc(100vh-72px)] items-center justify-center overflow-hidden bg-slate-50 px-4 py-16">
+    <main className="relative flex min-h-[calc(100vh-72px)] items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950 px-4 py-16">
       {/* Fondo decorativo */}
 
       <motion.div
@@ -178,18 +182,18 @@ function RegisterPage() {
         }}
         className="relative w-full max-w-lg"
       >
-        <div className="rounded-[28px] border border-slate-200/80 bg-white/90 p-7 shadow-[0_20px_70px_rgba(15,23,42,0.10)] backdrop-blur-xl sm:p-10">
-          <div className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-3 py-1.5 text-xs font-bold text-brand-700">
+        <div className="rounded-[28px] border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/90 p-7 shadow-[0_20px_70px_rgba(15,23,42,0.10)] backdrop-blur-xl sm:p-10">
+          <div className="inline-flex items-center gap-2 rounded-full bg-brand-50 dark:bg-brand-900/25 px-3 py-1.5 text-xs font-bold text-brand-700 dark:text-brand-300">
             <Sparkles size={14} />
 
             Únete a Evently
           </div>
 
-          <h1 className="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+          <h1 className="mt-5 text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50 sm:text-4xl">
             Crea tu cuenta
           </h1>
 
-          <p className="mt-3 leading-7 text-slate-500">
+          <p className="mt-3 leading-7 text-slate-500 dark:text-slate-400">
             Descubre eventos,
             administra tus entradas y
             conviértete en organizador
@@ -206,7 +210,7 @@ function RegisterPage() {
           >
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
-                <label className="text-sm font-bold text-slate-700">
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-200">
                   Nombre
                 </label>
 
@@ -215,11 +219,11 @@ function RegisterPage() {
                     "firstName"
                   )}
                   placeholder="Adrian"
-                  className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+                  className="mt-2 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/70 px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
                 />
 
                 {errors.firstName && (
-                  <p className="mt-2 text-sm font-medium text-red-600">
+                  <p className="mt-2 text-sm font-medium text-red-600 dark:text-red-400">
                     {
                       errors
                         .firstName
@@ -230,7 +234,7 @@ function RegisterPage() {
               </div>
 
               <div>
-                <label className="text-sm font-bold text-slate-700">
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-200">
                   Apellido
                 </label>
 
@@ -239,11 +243,11 @@ function RegisterPage() {
                     "lastName"
                   )}
                   placeholder="Curet"
-                  className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+                  className="mt-2 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/70 px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
                 />
 
                 {errors.lastName && (
-                  <p className="mt-2 text-sm font-medium text-red-600">
+                  <p className="mt-2 text-sm font-medium text-red-600 dark:text-red-400">
                     {
                       errors
                         .lastName
@@ -255,7 +259,7 @@ function RegisterPage() {
             </div>
 
             <div>
-              <label className="text-sm font-bold text-slate-700">
+              <label className="text-sm font-bold text-slate-700 dark:text-slate-200">
                 Correo electrónico
               </label>
 
@@ -265,11 +269,11 @@ function RegisterPage() {
                   "email"
                 )}
                 placeholder="correo@ejemplo.com"
-                className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+                className="mt-2 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/70 px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
               />
 
               {errors.email && (
-                <p className="mt-2 text-sm font-medium text-red-600">
+                <p className="mt-2 text-sm font-medium text-red-600 dark:text-red-400">
                   {
                     errors.email
                       .message
@@ -279,7 +283,7 @@ function RegisterPage() {
             </div>
 
             <div>
-              <label className="text-sm font-bold text-slate-700">
+              <label className="text-sm font-bold text-slate-700 dark:text-slate-200">
                 Contraseña
               </label>
 
@@ -294,7 +298,7 @@ function RegisterPage() {
                     "password"
                   )}
                   placeholder="••••••••"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3.5 pr-12 text-sm outline-none transition-all duration-200 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/70 px-4 py-3.5 pr-12 text-sm outline-none transition-all duration-200 hover:border-slate-300 focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
                 />
 
                 <button
@@ -305,7 +309,7 @@ function RegisterPage() {
                         !current
                     )
                   }
-                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700"
                   aria-label="Mostrar contraseña"
                 >
                   {showPassword ? (
@@ -321,7 +325,7 @@ function RegisterPage() {
               </div>
 
               {errors.password && (
-                <p className="mt-2 text-sm font-medium text-red-600">
+                <p className="mt-2 text-sm font-medium text-red-600 dark:text-red-400">
                   {
                     errors.password
                       .message
@@ -365,7 +369,7 @@ function RegisterPage() {
             </div>
 
             <div>
-              <label className="text-sm font-bold text-slate-700">
+              <label className="text-sm font-bold text-slate-700 dark:text-slate-200">
                 Repetir contraseña
               </label>
 
@@ -380,7 +384,7 @@ function RegisterPage() {
                     "confirmPassword"
                   )}
                   placeholder="••••••••"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3.5 pr-12 text-sm outline-none transition-all duration-200 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/70 px-4 py-3.5 pr-12 text-sm outline-none transition-all duration-200 hover:border-slate-300 focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
                 />
 
                 <button
@@ -391,7 +395,7 @@ function RegisterPage() {
                         !current
                     )
                   }
-                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700"
                 >
                   {showConfirmPassword ? (
                     <EyeOff
@@ -406,7 +410,7 @@ function RegisterPage() {
               </div>
 
               {errors.confirmPassword && (
-                <p className="mt-2 text-sm font-medium text-red-600">
+                <p className="mt-2 text-sm font-medium text-red-600 dark:text-red-400">
                   {
                     errors
                       .confirmPassword
@@ -426,7 +430,7 @@ function RegisterPage() {
                   opacity: 1,
                   y: 0,
                 }}
-                className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700"
+                className="rounded-xl border border-red-200 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10 p-4 text-sm font-medium text-red-700 dark:text-red-300"
               >
                 {serverError}
               </motion.div>
@@ -455,7 +459,7 @@ function RegisterPage() {
             </motion.button>
           </form>
 
-          <p className="mt-7 text-center text-sm text-slate-500">
+          <p className="mt-7 text-center text-sm text-slate-500 dark:text-slate-400">
             ¿Ya tienes una cuenta?{" "}
             <Link
               to="/login"
@@ -491,7 +495,7 @@ function PasswordRule({
         className={`grid h-4 w-4 place-items-center rounded-full transition ${
           valid
             ? "bg-emerald-100"
-            : "bg-slate-100"
+            : "bg-slate-100 dark:bg-slate-800"
         }`}
       >
         <Check size={10} />

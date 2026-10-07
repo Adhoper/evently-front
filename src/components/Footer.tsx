@@ -13,7 +13,7 @@ function Footer() {
     new Date().getFullYear();
 
   return (
-    <footer className="border-t border-slate-200 bg-white">
+    <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr]">
           {/* BRAND */}
@@ -30,7 +30,7 @@ function Footer() {
               </div>
 
               <div>
-                <span className="text-lg font-black tracking-tight text-slate-950">
+                <span className="text-lg font-black tracking-tight text-slate-950 dark:text-slate-50">
                   EVENTLY
                 </span>
 
@@ -38,7 +38,7 @@ function Footer() {
               </div>
             </Link>
 
-            <p className="mt-4 max-w-sm text-sm leading-6 text-slate-500">
+            <p className="mt-4 max-w-sm text-sm leading-6 text-slate-500 dark:text-slate-400">
               Descubre eventos,
               guarda tus entradas y
               organiza experiencias
@@ -53,7 +53,7 @@ function Footer() {
               Explorar
             </p>
 
-            <div className="mt-4 space-y-3 text-sm font-semibold text-slate-600">
+            <div className="mt-4 space-y-3 text-sm font-semibold text-slate-600 dark:text-slate-300">
               <Link
                 to="/"
                 className="block w-fit transition hover:translate-x-1 hover:text-brand-600"
@@ -84,7 +84,7 @@ function Footer() {
               Proyecto
             </p>
 
-            <div className="mt-4 space-y-4 text-sm font-semibold text-slate-600">
+            <div className="mt-4 space-y-4 text-sm font-semibold text-slate-600 dark:text-slate-300">
               <div className="flex items-start gap-2.5">
                 <CalendarDays
                   size={16}
@@ -114,7 +114,7 @@ function Footer() {
 
         {/* BOTTOM */}
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-slate-200 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-3 border-t border-slate-200 dark:border-slate-800 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} Evently.
           </p>

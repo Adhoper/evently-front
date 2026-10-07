@@ -21,28 +21,28 @@ interface StatCardProps {
 const variants = {
   blue: {
     container:
-      "bg-brand-50 border-brand-100",
+      "bg-brand-50 dark:bg-brand-900/25 border-brand-100 dark:border-brand-800/50",
     icon:
       "bg-brand-600 text-white shadow-brand-600/20",
   },
 
   yellow: {
     container:
-      "bg-amber-50 border-amber-100",
+      "bg-amber-50 dark:bg-amber-500/10 border-amber-100 dark:border-amber-500/20",
     icon:
-      "bg-accent-400 text-slate-950 shadow-accent-400/20",
+      "bg-accent-400 text-slate-950 dark:text-slate-50 shadow-accent-400/20",
   },
 
   green: {
     container:
-      "bg-emerald-50 border-emerald-100",
+      "bg-emerald-50 dark:bg-emerald-500/10 border-emerald-100 dark:border-emerald-500/20",
     icon:
       "bg-emerald-500 text-white shadow-emerald-500/20",
   },
 
   slate: {
     container:
-      "bg-white border-slate-200",
+      "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800",
     icon:
       "bg-slate-950 text-white shadow-slate-900/20",
   },
@@ -70,11 +70,11 @@ function StatCard({
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm font-bold text-slate-500">
+          <p className="text-sm font-bold text-slate-500 dark:text-slate-400">
             {title}
           </p>
 
-          <p className="mt-2 text-4xl font-black tracking-tight text-slate-950">
+          <p className="mt-2 text-4xl font-black tracking-tight text-slate-950 dark:text-slate-50">
             {value}
           </p>
         </div>
@@ -86,7 +86,7 @@ function StatCard({
         </div>
       </div>
 
-      <p className="mt-5 text-xs font-medium text-slate-500">
+      <p className="mt-5 text-xs font-medium text-slate-500 dark:text-slate-400">
         {description}
       </p>
     </motion.article>

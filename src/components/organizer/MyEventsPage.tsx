@@ -265,11 +265,11 @@ useEffect(() => {
                 Organización
               </span>
 
-              <h1 className="mt-2 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+              <h1 className="mt-2 text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50 sm:text-4xl">
                 Mis eventos
               </h1>
 
-              <p className="mt-2 text-slate-500">
+              <p className="mt-2 text-slate-500 dark:text-slate-400">
                 Consulta y administra
                 los eventos que has
                 creado.
@@ -296,18 +296,18 @@ useEffect(() => {
                 (item) => (
                   <div
                     key={item}
-                    className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"
+                    className="overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
                   >
-                    <div className="aspect-[16/8] animate-pulse bg-slate-200" />
+                    <div className="aspect-16/8 animate-pulse bg-slate-200 dark:bg-slate-700" />
 
                     <div className="space-y-4 p-6">
-                      <div className="h-4 w-24 animate-pulse rounded bg-slate-200" />
+                      <div className="h-4 w-24 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
 
-                      <div className="h-7 w-3/4 animate-pulse rounded bg-slate-200" />
+                      <div className="h-7 w-3/4 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
 
-                      <div className="h-4 w-1/2 animate-pulse rounded bg-slate-200" />
+                      <div className="h-4 w-1/2 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
 
-                      <div className="h-4 w-2/3 animate-pulse rounded bg-slate-200" />
+                      <div className="h-4 w-2/3 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
                     </div>
                   </div>
                 )
@@ -328,20 +328,20 @@ useEffect(() => {
                 opacity: 1,
                 y: 0,
               }}
-              className="mt-10 rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-20 text-center shadow-sm"
+              className="mt-10 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-6 py-20 text-center shadow-sm"
             >
-              <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-50 text-brand-600">
+              <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-50 dark:bg-brand-900/25 text-brand-600">
                 <CalendarDays
                   size={28}
                 />
               </div>
 
-              <h2 className="mt-5 text-xl font-black text-slate-950">
+              <h2 className="mt-5 text-xl font-black text-slate-950 dark:text-slate-50">
                 Todavía no tienes
                 eventos
               </h2>
 
-              <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+              <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500 dark:text-slate-400">
                 Crea tu primer evento
                 y comienza a
                 administrarlo desde
@@ -390,11 +390,11 @@ useEffect(() => {
                     whileHover={{
                       y: -5,
                     }}
-                    className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-xl"
+                    className="group overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm transition-shadow duration-300 hover:shadow-xl"
                   >
                     {/* IMAGE */}
 
-                    <div className="relative aspect-[16/8] overflow-hidden bg-slate-900">
+                    <div className="relative aspect-16/8 overflow-hidden bg-slate-900">
                       {event.imageUrl ? (
                         <img
                           src={
@@ -406,7 +406,7 @@ useEffect(() => {
                           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                         />
                       ) : (
-                        <div className="flex h-full items-center justify-center bg-gradient-to-br from-brand-600 via-brand-800 to-slate-950">
+                        <div className="flex h-full items-center justify-center bg-linear-to-br from-brand-600 via-brand-800 to-slate-950">
                           <div className="text-center">
                             <span className="text-lg font-black tracking-[0.2em] text-white">
                               EVENTLY
@@ -437,7 +437,7 @@ useEffect(() => {
                         }
                       </span>
 
-                      <h2 className="mt-2 line-clamp-2 min-h-[56px] text-xl font-black leading-7 text-slate-950">
+                      <h2 className="mt-2 line-clamp-2 min-h-14 text-xl font-black leading-7 text-slate-950 dark:text-slate-50">
                         {
                           event.title
                         }
@@ -445,9 +445,9 @@ useEffect(() => {
 
                       {/* DETAILS */}
 
-                      <div className="mt-5 space-y-3 text-sm text-slate-500">
+                      <div className="mt-5 space-y-3 text-sm text-slate-500 dark:text-slate-400">
                         <div className="flex items-center gap-2.5">
-                          <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-600">
+                          <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-50 dark:bg-brand-900/25 text-brand-600">
                             <CalendarDays
                               size={
                                 15
@@ -478,7 +478,7 @@ useEffect(() => {
                         </div>
 
                         <div className="flex items-center gap-2.5">
-                          <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-600">
+                          <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-50 dark:bg-brand-900/25 text-brand-600">
                             <MapPin
                               size={
                                 15
@@ -494,7 +494,7 @@ useEffect(() => {
                         </div>
 
                         <div className="flex items-center gap-2.5">
-                          <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-600">
+                          <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-50 dark:bg-brand-900/25 text-brand-600">
                             <Users
                               size={
                                 15
@@ -521,7 +521,7 @@ useEffect(() => {
                           <>
                             <Link
                               to={`/organizer/events/${event.id}/edit`}
-                              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs font-bold text-slate-700 transition hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700"
+                              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 px-3.5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 transition hover:border-brand-200 hover:bg-brand-50 dark:hover:bg-brand-900/30 hover:text-brand-700"
                             >
                               <Edit3
                                 size={
@@ -559,7 +559,7 @@ useEffect(() => {
                           <>
                             <Link
                               to={`/organizer/events/${event.id}/edit`}
-                              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs font-bold text-slate-700 transition hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700"
+                              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 px-3.5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 transition hover:border-brand-200 hover:bg-brand-50 dark:hover:bg-brand-900/30 hover:text-brand-700"
                             >
                               <Edit3
                                 size={
@@ -574,7 +574,7 @@ useEffect(() => {
                               to={`/events/${event.id}`}
                               target="_blank"
                               rel="noreferrer"
-                              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3.5 py-2.5 text-xs font-bold text-slate-700 transition hover:bg-slate-50"
+                              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 px-3.5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-200 transition hover:bg-slate-50 dark:hover:bg-slate-800/70"
                             >
                               <ExternalLink
                                 size={
@@ -592,7 +592,7 @@ useEffect(() => {
                                   event
                                 )
                               }
-                              className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-xs font-bold text-red-600 transition hover:bg-red-100"
+                              className="inline-flex items-center gap-2 rounded-xl border border-red-200 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10 px-3.5 py-2.5 text-xs font-bold text-red-600 dark:text-red-400 transition hover:bg-red-100 dark:hover:bg-red-500/20"
                             >
                               <Trash2
                                 size={
@@ -609,7 +609,7 @@ useEffect(() => {
 
                         {event.status ===
                           "Cancelled" && (
-                          <div className="w-full rounded-xl bg-slate-50 px-4 py-3 text-xs font-semibold text-slate-500">
+                          <div className="w-full rounded-xl bg-slate-50 dark:bg-slate-950 px-4 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
                             Este evento fue
                             cancelado y ya no
                             admite acciones.
@@ -620,7 +620,7 @@ useEffect(() => {
 
                         {event.status ===
                           "Finished" && (
-                          <div className="w-full rounded-xl bg-slate-50 px-4 py-3 text-xs font-semibold text-slate-500">
+                          <div className="w-full rounded-xl bg-slate-50 dark:bg-slate-950 px-4 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
                             Este evento ya
                             finalizó.
                           </div>

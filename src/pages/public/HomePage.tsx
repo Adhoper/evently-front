@@ -132,7 +132,7 @@ function HomePage() {
           HERO
           ====================================================== */}
 
-      <section className="relative bg-white">
+      <section className="relative bg-white dark:bg-slate-900">
         {/* DECORATIVE BLUE LIGHT */}
 
         <motion.div
@@ -145,7 +145,7 @@ function HomePage() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="pointer-events-none absolute -right-32 top-10 h-[420px] w-[420px] rounded-full bg-brand-200/50 blur-3xl"
+          className="pointer-events-none absolute -right-32 top-10 h-105 w-105 rounded-full bg-brand-200/50 blur-3xl"
         />
 
         {/* DECORATIVE YELLOW LIGHT */}
@@ -160,7 +160,7 @@ function HomePage() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="pointer-events-none absolute -left-40 bottom-0 h-[350px] w-[350px] rounded-full bg-accent-300/20 blur-3xl"
+          className="pointer-events-none absolute -left-40 bottom-0 h-87.5 w-87.5 rounded-full bg-accent-300/20 blur-3xl"
         />
 
         <div className="relative mx-auto grid min-h-[calc(100vh-72px)] max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_.9fr] lg:px-8 lg:py-24">
@@ -179,7 +179,7 @@ function HomePage() {
               duration: 0.55,
             }}
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-brand-100 bg-brand-50 px-3 py-1.5 text-xs font-black text-brand-700">
+            <div className="inline-flex items-center gap-2 rounded-full border border-brand-100 dark:border-brand-800/50 bg-brand-50 dark:bg-brand-900/25 px-3 py-1.5 text-xs font-black text-brand-700 dark:text-brand-300">
               <Sparkles
                 size={14}
               />
@@ -188,7 +188,7 @@ function HomePage() {
               la pena vivir
             </div>
 
-            <h1 className="mt-6 max-w-3xl text-[clamp(3rem,8vw,6.3rem)] font-black leading-[0.94] tracking-[-0.055em] text-slate-950">
+            <h1 className="mt-6 max-w-3xl text-[clamp(3rem,8vw,6.3rem)] font-black leading-[0.94] tracking-[-0.055em] text-slate-950 dark:text-slate-50">
               Tu próximo
 
               <span className="relative ml-3 inline-block text-brand-600">
@@ -202,7 +202,7 @@ function HomePage() {
               empieza aquí.
             </h1>
 
-            <p className="mt-8 max-w-xl text-base leading-7 text-slate-500 sm:text-lg sm:leading-8">
+            <p className="mt-8 max-w-xl text-base leading-7 text-slate-500 dark:text-slate-400 sm:text-lg sm:leading-8">
               Descubre experiencias,
               actividades y encuentros,
               y lleva tus entradas
@@ -224,7 +224,7 @@ function HomePage() {
 
               <a
                 href="#featured"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-700 transition hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3 text-sm font-black text-slate-700 dark:text-slate-200 transition hover:border-brand-200 hover:bg-brand-50 dark:hover:bg-brand-900/30 hover:text-brand-700"
               >
                 <Search
                   size={17}
@@ -256,7 +256,7 @@ function HomePage() {
             }}
             className="relative mx-auto hidden w-full max-w-lg lg:block"
           >
-            <div className="rotate-2 rounded-[32px] border border-white/60 bg-gradient-to-br from-brand-500 via-brand-700 to-slate-950 p-7 shadow-[0_40px_100px_rgba(37,99,235,.22)]">
+            <div className="rotate-2 rounded-4xl border border-white/60 bg-linear-to-br from-brand-500 via-brand-700 to-slate-950 p-7 shadow-[0_40px_100px_rgba(37,99,235,.22)]">
               <div className="rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl">
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-brand-100">
                   Próxima experiencia
@@ -291,12 +291,12 @@ function HomePage() {
                     </p>
                   </div>
 
-                  <div className="rounded-2xl bg-accent-400 p-4 text-slate-950">
+                  <div className="rounded-2xl bg-accent-400 p-4 text-slate-950 dark:text-slate-50">
                     <TicketCheck
                       size={21}
                     />
 
-                    <p className="mt-3 text-xs font-bold text-slate-700">
+                    <p className="mt-3 text-xs font-bold text-slate-700 dark:text-slate-200">
                       Entradas
                     </p>
 
@@ -315,7 +315,7 @@ function HomePage() {
           BENEFITS
           ====================================================== */}
 
-      <section className="border-y border-slate-200 bg-slate-950 py-7">
+      <section className="border-y border-slate-200 dark:border-slate-800 bg-slate-950 py-7">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-4 sm:grid-cols-3 sm:px-6 lg:px-8">
           <Feature
             icon={Search}
@@ -347,7 +347,7 @@ function HomePage() {
 
       <section
         id="featured"
-        className="bg-slate-50 py-20 sm:py-24"
+        className="bg-slate-50 dark:bg-slate-950 py-20 sm:py-24"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
@@ -356,11 +356,11 @@ function HomePage() {
                 Descubre
               </span>
 
-              <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+              <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50 sm:text-4xl">
                 Próximos eventos
               </h2>
 
-              <p className="mt-3 max-w-xl text-sm leading-6 text-slate-500 sm:text-base">
+              <p className="mt-3 max-w-xl text-sm leading-6 text-slate-500 dark:text-slate-400 sm:text-base">
                 Explora algunos de los
                 eventos disponibles en
                 Evently.
@@ -441,15 +441,15 @@ function HomePage() {
           CTA
           ====================================================== */}
 
-      <section className="bg-white py-20 sm:py-24">
+      <section className="bg-white dark:bg-slate-900 py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-[32px] bg-slate-950 px-6 py-12 text-white sm:px-10 sm:py-16 lg:px-16">
+          <div className="relative overflow-hidden rounded-4xl bg-slate-950 px-6 py-12 text-white sm:px-10 sm:py-16 lg:px-16">
             <div className="absolute -right-20 -top-24 h-72 w-72 rounded-full bg-brand-600/40 blur-3xl" />
 
             <div className="absolute -bottom-32 left-10 h-60 w-60 rounded-full bg-accent-400/20 blur-3xl" />
 
             <div className="relative max-w-2xl">
-              <div className="grid h-12 w-12 place-items-center rounded-2xl bg-accent-400 text-slate-950">
+              <div className="grid h-12 w-12 place-items-center rounded-2xl bg-accent-400 text-slate-950 dark:text-slate-50">
                 <Sparkles
                   size={21}
                 />
@@ -469,7 +469,7 @@ function HomePage() {
 
               <Link
                 to="/account"
-                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-brand-50"
+                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white dark:bg-slate-900 px-5 py-3 text-sm font-black text-slate-950 dark:text-slate-50 transition hover:-translate-y-0.5 hover:bg-brand-50 dark:hover:bg-brand-900/30"
               >
                 Comenzar
 
@@ -530,18 +530,18 @@ function EventsSkeleton() {
         (item) => (
           <div
             key={item}
-            className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"
+            className="overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
           >
-            <div className="aspect-[16/10] animate-pulse bg-slate-200" />
+            <div className="aspect-16/10 animate-pulse bg-slate-200 dark:bg-slate-700" />
 
             <div className="space-y-4 p-6">
-              <div className="h-6 w-2/3 animate-pulse rounded bg-slate-200" />
+              <div className="h-6 w-2/3 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
 
-              <div className="h-4 w-1/2 animate-pulse rounded bg-slate-200" />
+              <div className="h-4 w-1/2 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
 
-              <div className="h-4 w-3/4 animate-pulse rounded bg-slate-200" />
+              <div className="h-4 w-3/4 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
 
-              <div className="h-11 w-full animate-pulse rounded-xl bg-slate-200" />
+              <div className="h-11 w-full animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
             </div>
           </div>
         )

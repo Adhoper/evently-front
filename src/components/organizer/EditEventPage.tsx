@@ -166,7 +166,7 @@ function EditEventPage() {
   if (loading) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center">
-        <div className="flex flex-col items-center gap-3 text-slate-500">
+        <div className="flex flex-col items-center gap-3 text-slate-500 dark:text-slate-400">
           <LoaderCircle
             size={30}
             className="animate-spin text-brand-600"
@@ -205,13 +205,13 @@ function EditEventPage() {
   ) {
     return (
       <div className="px-4 py-16">
-        <div className="mx-auto max-w-xl rounded-3xl border border-amber-200 bg-amber-50 p-8 text-center">
-          <h1 className="text-2xl font-black text-slate-950">
+        <div className="mx-auto max-w-xl rounded-3xl border border-amber-200 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/10 p-8 text-center">
+          <h1 className="text-2xl font-black text-slate-950 dark:text-slate-50">
             Este evento no puede
             editarse
           </h1>
 
-          <p className="mt-3 text-slate-600">
+          <p className="mt-3 text-slate-600 dark:text-slate-300">
             Los eventos cancelados
             o finalizados ya no
             admiten modificaciones.
@@ -266,7 +266,7 @@ function EditEventPage() {
       <div className="mx-auto max-w-7xl">
         <Link
           to="/organizer/events"
-          className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 transition hover:text-brand-600"
+          className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 transition hover:text-brand-600"
         >
           <ArrowLeft
             size={17}
@@ -284,10 +284,10 @@ function EditEventPage() {
             Editar evento
           </h1>
 
-          <p className="mt-2 text-slate-500">
+          <p className="mt-2 text-slate-500 dark:text-slate-400">
             Modifica la información
             de{" "}
-            <strong className="text-slate-700">
+            <strong className="text-slate-700 dark:text-slate-200">
               {event.title}
             </strong>
             .

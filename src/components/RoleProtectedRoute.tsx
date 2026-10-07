@@ -31,8 +31,8 @@ function RoleProtectedRoute({
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
-        <div className="flex flex-col items-center gap-3 text-slate-500">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-slate-950">
+        <div className="flex flex-col items-center gap-3 text-slate-500 dark:text-slate-400">
           <LoaderCircle
             className="animate-spin text-brand-600"
             size={30}

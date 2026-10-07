@@ -14,7 +14,7 @@ import {
 
 function NotFoundPage() {
   return (
-    <main className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-slate-50 px-4 py-16">
+    <main className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950 px-4 py-16">
       <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-200/40 blur-3xl" />
 
       <motion.div
@@ -38,12 +38,12 @@ function NotFoundPage() {
           Error 404
         </p>
 
-        <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
+        <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 dark:text-slate-50 sm:text-5xl">
           Parece que este evento no
           existe.
         </h1>
 
-        <p className="mx-auto mt-5 max-w-md leading-7 text-slate-500">
+        <p className="mx-auto mt-5 max-w-md leading-7 text-slate-500 dark:text-slate-400">
           La página que intentas visitar
           pudo cambiar de dirección o
           simplemente nunca estuvo aquí.
@@ -63,7 +63,7 @@ function NotFoundPage() {
 
           <Link
             to="/events"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3.5 text-sm font-black text-slate-700"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-5 py-3.5 text-sm font-black text-slate-700 dark:text-slate-200"
           >
             <Sparkles
               size={17}

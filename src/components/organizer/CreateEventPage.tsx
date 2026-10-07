@@ -110,7 +110,7 @@ function CreateEventPage() {
       <div className="mx-auto max-w-7xl">
         <Link
           to="/organizer/events"
-          className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 transition hover:text-brand-600"
+          className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 transition hover:text-brand-600"
         >
           <ArrowLeft
             size={17}
@@ -124,11 +124,11 @@ function CreateEventPage() {
             Organización
           </span>
 
-          <h1 className="mt-2 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
+          <h1 className="mt-2 text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50 sm:text-4xl">
             Crear evento
           </h1>
 
-          <p className="mt-2 max-w-2xl text-slate-500">
+          <p className="mt-2 max-w-2xl text-slate-500 dark:text-slate-400">
             Completa la
             información y guarda
             tu evento como

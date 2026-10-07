@@ -1,10 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>evently-front</title>
+    <meta name="theme-color" content="#2563eb" />
+    <title>Evently</title>
+
+    <script>
+      (() => {
+        try {
+          const storedTheme = localStorage.getItem("evently_theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const shouldUseDark = storedTheme === "dark" || (!storedTheme && prefersDark);
+
+          document.documentElement.classList.toggle("dark", shouldUseDark);
+          document.documentElement.style.colorScheme = shouldUseDark ? "dark" : "light";
+        } catch {
+          // Si localStorage no está disponible, la app continúa en modo claro.
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

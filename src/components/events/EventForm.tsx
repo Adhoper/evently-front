@@ -5,6 +5,7 @@ import {
 
 import {
   useForm,
+  useWatch,
 } from "react-hook-form";
 
 import {
@@ -71,7 +72,7 @@ function EventForm({
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: {
       errors,
       isSubmitting,
@@ -123,18 +124,28 @@ function EventForm({
   }, []);
 
   const title =
-    watch("title");
+    useWatch({
+      control,
+      name: "title",
+    }) ?? "";
 
   const description =
-    watch("description");
+    useWatch({
+      control,
+      name: "description",
+    }) ?? "";
 
   const imageUrl =
-    watch("imageUrl");
+    useWatch({
+      control,
+      name: "imageUrl",
+    }) ?? "";
 
   const categoryId =
-    watch(
-      "eventCategoryId"
-    );
+    useWatch({
+      control,
+      name: "eventCategoryId",
+    }) ?? 0;
 
   const selectedCategory =
     categories.find(
@@ -169,7 +180,7 @@ function EventForm({
             opacity: 1,
             y: 0,
           }}
-          className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm sm:p-8"
         >
           <SectionHeader
             icon={Text}
@@ -317,7 +328,7 @@ function EventForm({
           transition={{
             delay: 0.06,
           }}
-          className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm sm:p-8"
         >
           <SectionHeader
             icon={
@@ -436,7 +447,7 @@ function EventForm({
           transition={{
             delay: 0.12,
           }}
-          className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+          className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm sm:p-8"
         >
           <SectionHeader
             icon={Users}
@@ -536,9 +547,9 @@ function EventForm({
             opacity: 1,
             x: 0,
           }}
-          className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"
+          className="overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
         >
-          <div className="aspect-[16/9] overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-slate-950">
+          <div className="aspect-video overflow-hidden bg-linear-to-br from-brand-600 via-brand-700 to-slate-950">
             {imageUrl ? (
               <img
                 src={imageUrl}
@@ -568,23 +579,23 @@ function EventForm({
                 "Categoría"}
             </p>
 
-            <h3 className="mt-2 text-xl font-black leading-tight text-slate-950">
+            <h3 className="mt-2 text-xl font-black leading-tight text-slate-950 dark:text-slate-50">
               {title?.trim() ||
                 "Tu evento aparecerá aquí"}
             </h3>
 
-            <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-500">
+            <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-500 dark:text-slate-400">
               {description?.trim() ||
                 "Agrega una descripción para obtener una vista previa del evento."}
             </p>
 
-            <div className="mt-5 inline-flex rounded-full bg-amber-50 px-3 py-1.5 text-xs font-bold text-amber-700">
+            <div className="mt-5 inline-flex rounded-full bg-amber-50 dark:bg-amber-500/10 px-3 py-1.5 text-xs font-bold text-amber-700 dark:text-amber-300">
               Borrador
             </div>
           </div>
         </motion.div>
 
-        <div className="rounded-3xl border border-brand-100 bg-brand-50 p-5">
+        <div className="rounded-3xl border border-brand-100 dark:border-brand-800/50 bg-brand-50 dark:bg-brand-900/25 p-5">
           <p className="text-sm font-black text-brand-900">
             ¿Qué ocurre al
             guardar?
@@ -654,16 +665,16 @@ function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className="flex items-start gap-4">
-      <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600">
+      <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-50 dark:bg-brand-900/25 text-brand-600">
         <Icon size={20} />
       </div>
 
       <div>
-        <h2 className="font-black text-slate-950">
+        <h2 className="font-black text-slate-950 dark:text-slate-50">
           {title}
         </h2>
 
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           {description}
         </p>
       </div>
@@ -678,7 +689,7 @@ function FormLabel({
     React.ReactNode;
 }) {
   return (
-    <label className="text-sm font-bold text-slate-700">
+    <label className="text-sm font-bold text-slate-700 dark:text-slate-200">
       {children}
     </label>
   );
@@ -703,7 +714,7 @@ function FieldError({
         opacity: 1,
         y: 0,
       }}
-      className="mt-2 text-sm font-semibold text-red-600"
+      className="mt-2 text-sm font-semibold text-red-600 dark:text-red-400"
     >
       {message}
     </motion.p>
@@ -718,22 +729,22 @@ function inputClasses(
     w-full
     rounded-xl
     border
-    bg-slate-50/70
+    bg-slate-50/70 dark:bg-slate-800/70
     px-4
     py-3.5
     text-sm
-    text-slate-950
+    text-slate-950 dark:text-slate-50
     outline-none
     transition-all
     duration-200
     placeholder:text-slate-400
     hover:border-slate-300
-    focus:bg-white
+    focus:bg-white dark:focus:bg-slate-900
     focus:ring-4
     ${
       hasError
         ? "border-red-300 focus:border-red-500 focus:ring-red-500/10"
-        : "border-slate-200 focus:border-brand-500 focus:ring-brand-500/10"
+        : "border-slate-200 dark:border-slate-800 focus:border-brand-500 focus:ring-brand-500/10"
     }
   `;
 }

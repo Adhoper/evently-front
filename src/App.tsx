@@ -1,19 +1,17 @@
-import { Toaster } from "sonner";
-
 import AppRouter from "./routes/AppRouter";
 import AuthProvider from "./providers/AuthProvider";
+import ThemeProvider from "./providers/ThemeProvider";
+import AppToaster from "./components/ui/AppToaster";
 
 function App() {
   return (
-    <AuthProvider>
-      <AppRouter />
+    <ThemeProvider>
+      <AuthProvider>
+        <AppRouter />
 
-      <Toaster
-        position="top-right"
-        richColors
-        closeButton
-      />
-    </AuthProvider>
+        <AppToaster />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

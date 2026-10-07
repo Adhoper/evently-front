@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
-@import "tailwindcss";
+/*
+ * Tailwind v4:
+ * permite utilizar dark: cuando el elemento html
+ * contiene la clase "dark".
+ */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-brand-50: #eff6ff;
@@ -26,6 +31,13 @@
 
   body {
     @apply bg-slate-50 text-slate-950 antialiased;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  .dark body {
+    @apply bg-slate-950 text-slate-100;
   }
 
   button,
@@ -41,4 +53,12 @@
   ::selection {
     @apply bg-brand-600 text-white;
   }
+}
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }

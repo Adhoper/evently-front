@@ -67,7 +67,7 @@ function AccountPage() {
     };
 
   return (
-    <main className="min-h-[70vh] bg-slate-50 py-10 sm:py-16">
+    <main className="min-h-[70vh] bg-slate-50 dark:bg-slate-950 py-10 sm:py-16">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{
@@ -87,7 +87,7 @@ function AccountPage() {
             Mi cuenta
           </h1>
 
-          <p className="mt-2 text-slate-500">
+          <p className="mt-2 text-slate-500 dark:text-slate-400">
             Consulta la información de
             tu cuenta y administra tu
             perfil de Evently.
@@ -109,7 +109,7 @@ function AccountPage() {
             transition={{
               delay: 0.05,
             }}
-            className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+            className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm sm:p-8"
           >
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
               <div className="grid h-20 w-20 shrink-0 place-items-center rounded-3xl bg-linear-to-br from-brand-500 to-brand-700 text-2xl font-black text-white shadow-lg shadow-brand-600/20">
@@ -128,7 +128,7 @@ function AccountPage() {
                   }
                 </h2>
 
-                <span className="mt-2 inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-black text-brand-700">
+                <span className="mt-2 inline-flex rounded-full bg-brand-50 dark:bg-brand-900/25 px-3 py-1 text-xs font-black text-brand-700 dark:text-brand-300">
                   {user.role ===
                   "Organizer"
                     ? "Organizador"
@@ -175,7 +175,7 @@ function AccountPage() {
               <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-brand-600/50 blur-3xl" />
 
               <div className="relative">
-                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-accent-400 text-slate-950">
+                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-accent-400 text-slate-950 dark:text-slate-50">
                   <CalendarPlus
                     size={21}
                   />
@@ -201,7 +201,7 @@ function AccountPage() {
                   disabled={
                     converting
                   }
-                  className="mt-7 w-full rounded-xl bg-white px-5 py-3.5 text-sm font-black text-slate-950 transition hover:bg-brand-50 disabled:opacity-60"
+                  className="mt-7 w-full rounded-xl bg-white dark:bg-slate-900 px-5 py-3.5 text-sm font-black text-slate-950 dark:text-slate-50 transition hover:bg-brand-50 dark:hover:bg-brand-900/30 disabled:opacity-60"
                 >
                   {converting
                     ? "Actualizando..."
@@ -219,7 +219,7 @@ function AccountPage() {
                 opacity: 1,
                 x: 0,
               }}
-              className="rounded-3xl border border-brand-100 bg-brand-50 p-7"
+              className="rounded-3xl border border-brand-100 dark:border-brand-800/50 bg-brand-50 dark:bg-brand-900/25 p-7"
             >
               <div className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-600 text-white">
                 <Sparkles
@@ -231,7 +231,7 @@ function AccountPage() {
                 Cuenta de organizador
               </h2>
 
-              <p className="mt-3 text-sm leading-7 text-slate-600">
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
                 Ya puedes publicar y
                 administrar tus eventos
                 desde tu panel.
@@ -267,7 +267,7 @@ function AccountInfo({
   value,
 }: AccountInfoProps) {
   return (
-    <div className="rounded-2xl bg-slate-50 p-5">
+    <div className="rounded-2xl bg-slate-50 dark:bg-slate-950 p-5">
       <div className="flex items-center gap-2 text-brand-600">
         <Icon size={17} />
 
@@ -276,7 +276,7 @@ function AccountInfo({
         </span>
       </div>
 
-      <p className="mt-3 wrap-break-word text-sm font-black text-slate-800">
+      <p className="mt-3 wrap-break-word text-sm font-black text-slate-800 dark:text-slate-100">
         {value}
       </p>
     </div>

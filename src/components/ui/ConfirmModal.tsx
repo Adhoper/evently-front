@@ -62,10 +62,10 @@ function ConfirmModal({
                 ? undefined
                 : onClose
             }
-            className="fixed inset-0 z-[90] bg-slate-950/50 backdrop-blur-sm"
+            className="fixed inset-0 z-90 bg-slate-950/50 backdrop-blur-sm"
           />
 
-          <div className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="pointer-events-none fixed inset-0 z-100 flex items-center justify-center p-4">
             <motion.div
               initial={{
                 opacity: 0,
@@ -85,15 +85,15 @@ function ConfirmModal({
               transition={{
                 duration: 0.2,
               }}
-              className="pointer-events-auto w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl"
+              className="pointer-events-auto w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl"
             >
               <div className="p-6 sm:p-7">
                 <div className="flex items-start justify-between gap-5">
                   <div
                     className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${
                       isDanger
-                        ? "bg-red-50 text-red-600"
-                        : "bg-brand-50 text-brand-600"
+                        ? "bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400"
+                        : "bg-brand-50 dark:bg-brand-900/25 text-brand-600"
                     }`}
                   >
                     {isDanger ? (
@@ -115,17 +115,17 @@ function ConfirmModal({
                     onClick={
                       onClose
                     }
-                    className="grid h-9 w-9 place-items-center rounded-xl text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 disabled:opacity-50"
+                    className="grid h-9 w-9 place-items-center rounded-xl text-slate-400 transition hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 disabled:opacity-50"
                   >
                     <X size={18} />
                   </button>
                 </div>
 
-                <h2 className="mt-6 text-xl font-black text-slate-950">
+                <h2 className="mt-6 text-xl font-black text-slate-950 dark:text-slate-50">
                   {title}
                 </h2>
 
-                <p className="mt-3 text-sm leading-6 text-slate-500">
+                <p className="mt-3 text-sm leading-6 text-slate-500 dark:text-slate-400">
                   {description}
                 </p>
 
@@ -138,7 +138,7 @@ function ConfirmModal({
                     onClick={
                       onClose
                     }
-                    className="rounded-xl border border-slate-200 px-5 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50"
+                    className="rounded-xl border border-slate-200 dark:border-slate-800 px-5 py-3 text-sm font-bold text-slate-700 dark:text-slate-200 transition hover:bg-slate-50 dark:hover:bg-slate-800/70 disabled:opacity-50"
                   >
                     Volver
                   </button>
