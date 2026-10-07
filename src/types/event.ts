@@ -21,6 +21,10 @@ export interface EventDetail
   extends Event {
   description: string;
   createdAt: string;
+
+  reservedCount: number;
+  availableSpots: number;
+  isSoldOut: boolean;
 }
 
 export interface CreateEventRequest {

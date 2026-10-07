@@ -1,4 +1,7 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
 import PublicLayout from "../layouts/PublicLayout";
 import OrganizerLayout from "../layouts/OrganizerLayout";
@@ -6,11 +9,16 @@ import OrganizerLayout from "../layouts/OrganizerLayout";
 import HomePage from "../pages/public/HomePage";
 import EventsPage from "../pages/public/EventsPage";
 import EventDetailPage from "../pages/public/EventDetailPage";
+import NotFoundPage from "../pages/public/NotFoundPage";
 
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
 
 import AccountPage from "../pages/account/AccountPage";
+
+import MyTicketsPage from "../pages/tickets/MyTicketsPage";
+
+
 
 import ProtectedRoute from "../components/ProtectedRoute";
 import RoleProtectedRoute from "../components/RoleProtectedRoute";
@@ -18,87 +26,143 @@ import OrganizerDashboardPage from "../components/organizer/OrganizerDashboardPa
 import MyEventsPage from "../components/organizer/MyEventsPage";
 import CreateEventPage from "../components/organizer/CreateEventPage";
 import EditEventPage from "../components/organizer/EditEventPage";
-import NotFoundPage from "../pages/public/NotFoundPage";
+import CheckInPage from "../components/organizer/CheckInPage";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <PublicLayout />,
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
+const router =
+  createBrowserRouter([
+    // =========================================================
+    // PUBLIC
+    // =========================================================
 
-      {
-        path: "events",
-        element: <EventsPage />,
-      },
+    {
+      path: "/",
+      element: <PublicLayout />,
 
-      {
-        path: "events/:id",
-        element: <EventDetailPage />,
-      },
+      children: [
+        {
+          index: true,
+          element: (
+            <HomePage />
+          ),
+        },
 
-      {
-        path: "login",
-        element: <LoginPage />,
-      },
+        {
+          path: "events",
+          element: (
+            <EventsPage />
+          ),
+        },
 
-      {
-        path: "register",
-        element: <RegisterPage />,
-      },
+        {
+          path: "events/:id",
+          element: (
+            <EventDetailPage />
+          ),
+        },
 
-      {
-        path: "account",
-        element: (
-          <ProtectedRoute>
-            <AccountPage />
-          </ProtectedRoute>
-        ),
-      },
+        {
+          path: "login",
+          element: (
+            <LoginPage />
+          ),
+        },
 
-      {
-        path: "*",
-        element: <NotFoundPage />,
-      },
-    ],
-  },
+        {
+          path: "register",
+          element: (
+            <RegisterPage />
+          ),
+        },
 
-  {
-    path: "/organizer",
-    element: (
-      <RoleProtectedRoute allowedRoles={["Organizer"]}>
-        <OrganizerLayout />
-      </RoleProtectedRoute>
-    ),
+        {
+          path: "account",
+          element: (
+            <ProtectedRoute>
+              <AccountPage />
+            </ProtectedRoute>
+          ),
+        },
 
-    children: [
-      {
-        index: true,
-        element: <OrganizerDashboardPage />,
-      },
+        {
+          path: "tickets",
+          element: (
+            <ProtectedRoute>
+              <MyTicketsPage />
+            </ProtectedRoute>
+          ),
+        },
 
-      {
-        path: "events",
-        element: <MyEventsPage />,
-      },
+        {
+          path: "*",
+          element: (
+            <NotFoundPage />
+          ),
+        },
+      ],
+    },
 
-      {
-        path: "events/create",
-        element: <CreateEventPage />,
-      },
-      {
-        path: "events/:id/edit",
-        element: <EditEventPage />,
-      },
-    ],
-  },
-]);
+    // =========================================================
+    // ORGANIZER
+    // =========================================================
+
+    {
+      path: "/organizer",
+
+      element: (
+        <RoleProtectedRoute
+          allowedRoles={[
+            "Organizer",
+          ]}
+        >
+          <OrganizerLayout />
+        </RoleProtectedRoute>
+      ),
+
+      children: [
+        {
+          index: true,
+          element: (
+            <OrganizerDashboardPage />
+          ),
+        },
+
+        {
+          path: "events",
+          element: (
+            <MyEventsPage />
+          ),
+        },
+
+        {
+          path: "events/create",
+          element: (
+            <CreateEventPage />
+          ),
+        },
+
+        {
+          path: "events/:id/edit",
+          element: (
+            <EditEventPage />
+          ),
+        },
+
+        {
+          path: "check-in",
+          element: (
+            <CheckInPage />
+          ),
+        },
+      ],
+    },
+  ]);
 
 function AppRouter() {
-  return <RouterProvider router={router} />;
+  return (
+    <RouterProvider
+      router={router}
+    />
+  );
 }
 
 export default AppRouter;

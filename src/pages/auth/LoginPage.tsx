@@ -15,6 +15,7 @@ import {
 
 import {
   Link,
+  useLocation,
   useNavigate,
 } from "react-router-dom";
 
@@ -40,9 +41,16 @@ import type {
   LoginRequest,
 } from "../../types/auth";
 
+interface LoginLocationState {
+  from?: string;
+}
+
 function LoginPage() {
   const navigate =
     useNavigate();
+
+  const location =
+    useLocation();
 
   const {
     loginUser,
@@ -61,6 +69,23 @@ function LoginPage() {
       null
     );
 
+  // ============================================================
+  // RETURN URL
+  // ============================================================
+
+  const locationState =
+    location.state as
+      | LoginLocationState
+      | null;
+
+  const from =
+    locationState?.from ??
+    "/";
+
+  // ============================================================
+  // FORM
+  // ============================================================
+
   const {
     register,
     handleSubmit,
@@ -76,20 +101,38 @@ function LoginPage() {
         ),
     });
 
+  // ============================================================
+  // LOGIN
+  // ============================================================
+
   const onSubmit =
     async (
       data: LoginRequest
     ) => {
       try {
-        setServerError(null);
+        setServerError(
+          null
+        );
 
         await loginUser(
           data
         );
 
-        navigate("/");
+        /*
+         * Si el usuario llegó al login
+         * desde un evento, volverá a ese
+         * evento después de autenticarse.
+         */
+        navigate(
+          from,
+          {
+            replace: true,
+          }
+        );
       } catch (error) {
-        console.error(error);
+        console.error(
+          error
+        );
 
         if (
           axios.isAxiosError(
@@ -113,19 +156,53 @@ function LoginPage() {
     };
 
   return (
-    <main className="relative flex min-h-[calc(100vh-72px)] items-center overflow-hidden bg-slate-50 dark:bg-slate-950 px-4 py-12 sm:py-16">
-      <div className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-brand-200/40 blur-3xl" />
+    <main className="relative flex min-h-[calc(100vh-72px)] items-center overflow-hidden bg-slate-50 px-4 py-12 dark:bg-slate-950 sm:py-16">
+      {/* ======================================================
+          DECORATIVE BACKGROUND
+          ====================================================== */}
 
-      <div className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-accent-300/15 blur-3xl" />
+      <motion.div
+        animate={{
+          x: [0, 25, 0],
+          y: [0, -15, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-brand-200/40 blur-3xl dark:bg-brand-900/20"
+      />
 
-      <div className="relative mx-auto grid w-full max-w-6xl overflow-hidden rounded-4xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-[0_30px_100px_rgba(15,23,42,.12)] lg:grid-cols-[.9fr_1.1fr]">
-        {/* VISUAL */}
+      <motion.div
+        animate={{
+          x: [0, -20, 0],
+          y: [0, 20, 0],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-accent-300/15 blur-3xl dark:bg-accent-400/5"
+      />
+
+      {/* ======================================================
+          LOGIN CARD
+          ====================================================== */}
+
+      <div className="relative mx-auto grid w-full max-w-6xl overflow-hidden rounded-4xl border border-slate-200 bg-white shadow-[0_30px_100px_rgba(15,23,42,.12)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_30px_100px_rgba(0,0,0,.35)] lg:grid-cols-[.9fr_1.1fr]">
+        {/* ====================================================
+            LEFT VISUAL
+            ==================================================== */}
 
         <div className="relative hidden overflow-hidden bg-linear-to-br from-brand-600 via-brand-800 to-slate-950 p-10 text-white lg:flex lg:flex-col">
           <div className="absolute -right-24 -top-24 h-60 w-60 rounded-full bg-accent-400/20 blur-3xl" />
 
+          <div className="absolute -bottom-20 -left-20 h-52 w-52 rounded-full bg-brand-400/20 blur-3xl" />
+
           <div className="relative">
-            <div className="grid h-12 w-12 place-items-center rounded-2xl bg-accent-400 text-slate-950 dark:text-slate-50">
+            <div className="grid h-12 w-12 place-items-center rounded-2xl bg-accent-400 text-slate-950 shadow-lg shadow-accent-400/20">
               <Sparkles
                 size={21}
               />
@@ -140,7 +217,8 @@ function LoginPage() {
               Accede a tus entradas,
               descubre nuevos eventos y
               administra tus
-              experiencias.
+              experiencias desde un
+              solo lugar.
             </p>
           </div>
 
@@ -153,10 +231,20 @@ function LoginPage() {
               Descubre. Conecta.
               Disfruta.
             </p>
+
+            <div className="mt-5 flex gap-2">
+              <div className="h-1.5 w-10 rounded-full bg-accent-400" />
+
+              <div className="h-1.5 w-5 rounded-full bg-white/20" />
+
+              <div className="h-1.5 w-5 rounded-full bg-white/20" />
+            </div>
           </div>
         </div>
 
-        {/* FORM */}
+        {/* ====================================================
+            FORM
+            ==================================================== */}
 
         <motion.div
           initial={{
@@ -167,13 +255,33 @@ function LoginPage() {
             opacity: 1,
             y: 0,
           }}
+          transition={{
+            duration: 0.4,
+          }}
           className="p-6 sm:p-10 lg:p-14"
         >
-          <span className="text-xs font-black uppercase tracking-[0.2em] text-brand-600">
+          {/* MOBILE BRAND */}
+
+          <Link
+            to="/"
+            className="mb-9 inline-flex items-center gap-2.5 lg:hidden"
+          >
+            <div className="grid h-9 w-9 place-items-center rounded-xl bg-brand-600 text-white">
+              <Sparkles
+                size={17}
+              />
+            </div>
+
+            <span className="font-black text-slate-950 dark:text-white">
+              EVENTLY
+            </span>
+          </Link>
+
+          <span className="text-xs font-black uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
             Bienvenido de nuevo
           </span>
 
-          <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-4xl">
             Iniciar sesión
           </h1>
 
@@ -181,6 +289,16 @@ function LoginPage() {
             Ingresa tus datos para
             continuar en Evently.
           </p>
+
+          {/* RETURN INFORMATION */}
+
+          {from !== "/" && (
+            <div className="mt-5 rounded-xl border border-brand-100 bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700 dark:border-brand-900 dark:bg-brand-950/30 dark:text-brand-300">
+              Inicia sesión y volverás
+              automáticamente al lugar
+              donde estabas.
+            </div>
+          )}
 
           <form
             onSubmit={
@@ -190,47 +308,79 @@ function LoginPage() {
             }
             className="mt-8 space-y-5"
           >
+            {/* EMAIL */}
+
             <div>
-              <label className="text-sm font-black text-slate-700 dark:text-slate-200">
+              <label
+                htmlFor="email"
+                className="text-sm font-black text-slate-700 dark:text-slate-300"
+              >
                 Correo electrónico
               </label>
 
               <input
+                id="email"
                 type="email"
+                autoComplete="email"
                 {...register(
                   "email"
                 )}
                 placeholder="correo@ejemplo.com"
-                className="mt-2 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3.5 text-sm outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
+                className={`mt-2 w-full rounded-xl border bg-slate-50 px-4 py-3.5 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:bg-white focus:ring-4 focus:ring-brand-500/10 dark:bg-slate-950 dark:text-white dark:focus:bg-slate-950 ${
+                  errors.email
+                    ? "border-red-300 focus:border-red-500 dark:border-red-800"
+                    : "border-slate-200 focus:border-brand-500 dark:border-slate-700"
+                }`}
               />
 
               {errors.email && (
-                <p className="mt-2 text-sm font-semibold text-red-600 dark:text-red-400">
+                <motion.p
+                  initial={{
+                    opacity: 0,
+                    y: -4,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  className="mt-2 text-sm font-semibold text-red-600 dark:text-red-400"
+                >
                   {
                     errors.email
                       .message
                   }
-                </p>
+                </motion.p>
               )}
             </div>
 
+            {/* PASSWORD */}
+
             <div>
-              <label className="text-sm font-black text-slate-700 dark:text-slate-200">
+              <label
+                htmlFor="password"
+                className="text-sm font-black text-slate-700 dark:text-slate-300"
+              >
                 Contraseña
               </label>
 
               <div className="relative mt-2">
                 <input
+                  id="password"
                   type={
                     showPassword
                       ? "text"
                       : "password"
                   }
+                  autoComplete="current-password"
                   {...register(
                     "password"
                   )}
                   placeholder="••••••••"
-                  className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3.5 pr-12 text-sm outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
+                  className={`w-full rounded-xl border bg-slate-50 px-4 py-3.5 pr-12 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:bg-white focus:ring-4 focus:ring-brand-500/10 dark:bg-slate-950 dark:text-white dark:focus:bg-slate-950 ${
+                    errors.password
+                      ? "border-red-300 focus:border-red-500 dark:border-red-800"
+                      : "border-slate-200 focus:border-brand-500 dark:border-slate-700"
+                  }`}
                 />
 
                 <button
@@ -241,7 +391,12 @@ function LoginPage() {
                         !value
                     )
                   }
-                  className="absolute right-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-lg text-slate-400 transition hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700"
+                  className="absolute right-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-white"
+                  aria-label={
+                    showPassword
+                      ? "Ocultar contraseña"
+                      : "Mostrar contraseña"
+                  }
                 >
                   {showPassword ? (
                     <EyeOff
@@ -256,14 +411,26 @@ function LoginPage() {
               </div>
 
               {errors.password && (
-                <p className="mt-2 text-sm font-semibold text-red-600 dark:text-red-400">
+                <motion.p
+                  initial={{
+                    opacity: 0,
+                    y: -4,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  className="mt-2 text-sm font-semibold text-red-600 dark:text-red-400"
+                >
                   {
                     errors.password
                       .message
                   }
-                </p>
+                </motion.p>
               )}
             </div>
+
+            {/* SERVER ERROR */}
 
             {serverError && (
               <motion.div
@@ -275,21 +442,34 @@ function LoginPage() {
                   opacity: 1,
                   y: 0,
                 }}
-                className="rounded-xl border border-red-200 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10 p-4 text-sm font-semibold text-red-700 dark:text-red-300"
+                className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-400"
               >
                 {serverError}
               </motion.div>
             )}
 
+            {/* SUBMIT */}
+
             <motion.button
-              whileTap={{
-                scale: 0.98,
-              }}
+              whileHover={
+                isSubmitting
+                  ? undefined
+                  : {
+                      y: -2,
+                    }
+              }
+              whileTap={
+                isSubmitting
+                  ? undefined
+                  : {
+                      scale: 0.98,
+                    }
+              }
               type="submit"
               disabled={
                 isSubmitting
               }
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3.5 font-black text-white shadow-lg shadow-brand-600/20 transition hover:-translate-y-0.5 hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3.5 font-black text-white shadow-lg shadow-brand-600/20 transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
               <LogIn
                 size={18}
@@ -301,11 +481,22 @@ function LoginPage() {
             </motion.button>
           </form>
 
+          {/* REGISTER */}
+
           <p className="mt-7 text-center text-sm text-slate-500 dark:text-slate-400">
-            ¿Aún no tienes una cuenta?{" "}
+            ¿Aún no tienes una
+            cuenta?{" "}
+
             <Link
               to="/register"
-              className="font-black text-brand-600 hover:text-brand-700"
+              state={
+                from !== "/"
+                  ? {
+                      from,
+                    }
+                  : undefined
+              }
+              className="font-black text-brand-600 transition hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
             >
               Crear cuenta
             </Link>
