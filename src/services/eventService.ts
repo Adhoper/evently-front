@@ -1,6 +1,7 @@
 import api from "../api/axios";
 
 import type {
+  CreateEventRequest,
   Event,
   EventDetail,
 } from "../types/event";
@@ -8,7 +9,9 @@ import type {
 export const getPublicEvents =
   async (): Promise<Event[]> => {
     const response =
-      await api.get<Event[]>("/events");
+      await api.get<Event[]>(
+        "/events"
+      );
 
     return response.data;
   };
@@ -42,6 +45,19 @@ export const getMyEventById =
     const response =
       await api.get<EventDetail>(
         `/events/mine/${id}`
+      );
+
+    return response.data;
+  };
+
+export const createEvent =
+  async (
+    data: CreateEventRequest
+  ): Promise<EventDetail> => {
+    const response =
+      await api.post<EventDetail>(
+        "/events",
+        data
       );
 
     return response.data;

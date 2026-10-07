@@ -16,6 +16,7 @@ import {
 
 import {
   CalendarDays,
+  CalendarPlus,
   ChevronRight,
   LayoutDashboard,
   LogOut,
@@ -36,11 +37,19 @@ const navigation = [
     icon: LayoutDashboard,
     end: true,
   },
+
   {
     label: "Mis eventos",
     to: "/organizer/events",
     icon: CalendarDays,
-    end: false,
+    end: true,
+  },
+
+  {
+    label: "Crear evento",
+    to: "/organizer/events/create",
+    icon: CalendarPlus,
+    end: true,
   },
 ];
 
