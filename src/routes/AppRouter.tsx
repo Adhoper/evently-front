@@ -18,6 +18,7 @@ import OrganizerDashboardPage from "../components/organizer/OrganizerDashboardPa
 import MyEventsPage from "../components/organizer/MyEventsPage";
 import CreateEventPage from "../components/organizer/CreateEventPage";
 import EditEventPage from "../components/organizer/EditEventPage";
+import NotFoundPage from "../pages/public/NotFoundPage";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,11 @@ const router = createBrowserRouter([
             <AccountPage />
           </ProtectedRoute>
         ),
+      },
+
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },

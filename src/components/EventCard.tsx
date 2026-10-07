@@ -1,5 +1,25 @@
-import { Link } from "react-router-dom";
-import type { Event } from "../types/event";
+import {
+  ArrowUpRight,
+  CalendarDays,
+  Clock3,
+  MapPin,
+} from "lucide-react";
+
+import {
+  motion,
+} from "motion/react";
+
+import {
+  Link,
+} from "react-router-dom";
+
+import type {
+  Event,
+} from "../types/event";
+
+import {
+  formatEventDate,
+} from "../utils/date";
 
 interface EventCardProps {
   event: Event;
@@ -8,69 +28,105 @@ interface EventCardProps {
 function EventCard({
   event,
 }: EventCardProps) {
-  const eventDate =
-    new Date(event.date);
-
-  const formattedDate =
-    eventDate.toLocaleDateString(
-      "es-DO",
-      {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      }
-    );
-
   return (
-    <article className="group overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-      <div className="aspect-[16/10] overflow-hidden bg-zinc-900">
+    <motion.article
+      whileHover={{
+        y: -6,
+      }}
+      transition={{
+        duration: 0.2,
+      }}
+      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-[0_22px_60px_rgba(15,23,42,0.12)]"
+    >
+      <Link
+        to={`/events/${event.id}`}
+        className="relative block aspect-16/10 overflow-hidden bg-slate-900"
+      >
         {event.imageUrl ? (
           <img
             src={event.imageUrl}
             alt={event.title}
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-950">
-            <span className="text-lg font-black tracking-[0.2em] text-white">
-              EVENTLY
-            </span>
+          <div className="flex h-full items-center justify-center bg-linear-to-br from-brand-500 via-brand-700 to-slate-950">
+            <div className="text-center">
+              <span className="text-xl font-black tracking-[0.2em] text-white">
+                EVENTLY
+              </span>
+
+              <div className="mx-auto mt-3 h-1 w-10 rounded-full bg-accent-400" />
+            </div>
           </div>
         )}
-      </div>
 
-      <div className="p-5">
-        <span className="inline-flex rounded-full bg-zinc-100 px-3 py-1 text-xs font-bold uppercase tracking-wide text-zinc-600">
+        <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-white/90 px-3 py-1.5 text-[11px] font-black uppercase tracking-wide text-brand-700 shadow-sm backdrop-blur">
           {event.categoryName}
-        </span>
+        </div>
+      </Link>
 
-        <h3 className="mt-4 text-xl font-bold text-zinc-950">
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <h2 className="line-clamp-2 text-xl font-black leading-7 text-slate-950">
           {event.title}
-        </h3>
+        </h2>
 
-        <div className="mt-4 space-y-2 text-sm text-zinc-500">
-          <p>
-            {formattedDate} ·{" "}
-            {event.startTime.slice(
-              0,
-              5
-            )}
-          </p>
+        <div className="mt-5 space-y-3 text-sm text-slate-500">
+          <div className="flex items-center gap-2.5">
+            <CalendarDays
+              size={16}
+              className="shrink-0 text-brand-500"
+            />
 
-          <p>{event.location}</p>
+            <span>
+              {formatEventDate(
+                event.date,
+                {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                }
+              )}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <Clock3
+              size={16}
+              className="shrink-0 text-brand-500"
+            />
+
+            <span>
+              {event.startTime.slice(
+                0,
+                5
+              )}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <MapPin
+              size={16}
+              className="shrink-0 text-brand-500"
+            />
+
+            <span className="line-clamp-1">
+              {event.location}
+            </span>
+          </div>
         </div>
 
         <Link
           to={`/events/${event.id}`}
-          className="mt-6 inline-flex items-center text-sm font-bold text-zinc-950 transition hover:gap-2"
+          className="mt-6 inline-flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm font-black text-slate-700 transition group-hover:bg-brand-50 group-hover:text-brand-700"
         >
           Ver evento
-          <span className="ml-2">
-            →
-          </span>
+
+          <ArrowUpRight
+            size={17}
+          />
         </Link>
       </div>
-    </article>
+    </motion.article>
   );
 }
 

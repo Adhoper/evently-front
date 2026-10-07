@@ -1,106 +1,446 @@
 import {
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
+import {
+  Search,
+  SlidersHorizontal,
+  X,
+} from "lucide-react";
+
+import {
+  motion,
+} from "motion/react";
+
 import EventCard from "../../components/EventCard";
-import { getPublicEvents } from "../../services/eventService";
-import type { Event } from "../../types/event";
+
+import {
+  EmptyState,
+  ErrorState,
+} from "../../components/ui/PageState";
+
+import {
+  getPublicEvents,
+} from "../../services/eventService";
+
+import type {
+  Event,
+} from "../../types/event";
 
 function EventsPage() {
-  const [events, setEvents] =
-    useState<Event[]>([]);
+  const [
+    events,
+    setEvents,
+  ] = useState<Event[]>([]);
 
-  const [loading, setLoading] =
-    useState(true);
+  const [
+    loading,
+    setLoading,
+  ] = useState(true);
 
-  const [error, setError] =
-    useState<string | null>(null);
+  const [
+    error,
+    setError,
+  ] = useState(false);
+
+  const [
+    search,
+    setSearch,
+  ] = useState("");
+
+  const [
+    category,
+    setCategory,
+  ] = useState("all");
+
+  // ============================================================
+  // INITIAL LOAD
+  // ============================================================
 
   useEffect(() => {
-    const loadEvents =
-      async () => {
-        try {
-          const data =
-            await getPublicEvents();
+    let cancelled = false;
 
-          setEvents(data);
-        } catch (error) {
-          console.error(error);
-
-          setError(
-            "No fue posible cargar los eventos."
-          );
-        } finally {
-          setLoading(false);
+    getPublicEvents()
+      .then((data) => {
+        if (cancelled) {
+          return;
         }
-      };
 
-    loadEvents();
+        setEvents(data);
+        setError(false);
+      })
+      .catch((requestError) => {
+        if (cancelled) {
+          return;
+        }
+
+        console.error(
+          requestError
+        );
+
+        setError(true);
+      })
+      .finally(() => {
+        if (cancelled) {
+          return;
+        }
+
+        setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
+  // ============================================================
+  // RETRY
+  // ============================================================
+
+  const handleRetry =
+    async () => {
+      try {
+        setLoading(true);
+        setError(false);
+
+        const data =
+          await getPublicEvents();
+
+        setEvents(data);
+      } catch (
+        requestError
+      ) {
+        console.error(
+          requestError
+        );
+
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+  // ============================================================
+  // CATEGORIES
+  // ============================================================
+
+  const categories =
+    useMemo(() => {
+      return Array.from(
+        new Set(
+          events.map(
+            (event) =>
+              event.categoryName
+          )
+        )
+      ).sort();
+    }, [events]);
+
+  // ============================================================
+  // FILTER EVENTS
+  // ============================================================
+
+  const filteredEvents =
+    useMemo(() => {
+      const normalizedSearch =
+        search
+          .trim()
+          .toLowerCase();
+
+      return events.filter(
+        (event) => {
+          const matchesSearch =
+            !normalizedSearch ||
+            event.title
+              .toLowerCase()
+              .includes(
+                normalizedSearch
+              ) ||
+            event.location
+              .toLowerCase()
+              .includes(
+                normalizedSearch
+              );
+
+          const matchesCategory =
+            category === "all" ||
+            event.categoryName ===
+              category;
+
+          return (
+            matchesSearch &&
+            matchesCategory
+          );
+        }
+      );
+    }, [
+      events,
+      search,
+      category,
+    ]);
+
+  const hasFilters =
+    search.trim().length > 0 ||
+    category !== "all";
+
+  const clearFilters = () => {
+    setSearch("");
+    setCategory("all");
+  };
+
+  // ============================================================
+  // RENDER
+  // ============================================================
+
   return (
-    <main className="min-h-[calc(100vh-72px)] py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">
-            Explora
-          </span>
+    <main className="min-h-screen bg-slate-50">
+      {/* ======================================================
+          HEADER
+          ====================================================== */}
 
-          <h1 className="mt-2 text-4xl font-black tracking-tight sm:text-5xl">
-            Eventos
-          </h1>
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 15,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            className="max-w-2xl"
+          >
+            <span className="text-xs font-black uppercase tracking-[0.2em] text-brand-600">
+              Explora
+            </span>
 
-          <p className="mt-4 text-lg text-zinc-500">
-            Descubre todos los eventos
-            disponibles en Evently.
-          </p>
-        </div>
+            <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
+              Encuentra tu próximo
+              evento.
+            </h1>
 
-        <div className="mt-12">
-          {loading && (
-            <p className="text-zinc-500">
-              Cargando eventos...
+            <p className="mt-4 text-base leading-7 text-slate-500 sm:text-lg">
+              Busca por nombre,
+              ubicación o explora por
+              categoría.
             </p>
-          )}
+          </motion.div>
 
-          {error && (
-            <div className="rounded-xl border border-red-200 bg-red-50 p-5 text-red-700">
-              {error}
-            </div>
-          )}
+          {/* ==================================================
+              SEARCH / FILTERS
+              ================================================== */}
 
-          {!loading &&
-            !error &&
-            events.length === 0 && (
-              <div className="rounded-2xl border border-dashed border-zinc-300 bg-white py-16 text-center">
-                <h2 className="text-xl font-bold">
-                  No encontramos eventos
-                </h2>
+          <div className="mt-9 grid gap-3 lg:grid-cols-[1fr_260px]">
+            {/* SEARCH */}
 
-                <p className="mt-2 text-zinc-500">
-                  Vuelve más adelante.
-                </p>
-              </div>
-            )}
+            <div className="relative">
+              <Search
+                size={18}
+                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              />
 
-          {!loading &&
-            !error &&
-            events.length > 0 && (
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {events.map(
-                  (event) => (
-                    <EventCard
-                      key={event.id}
-                      event={event}
-                    />
+              <input
+                type="search"
+                value={search}
+                onChange={(
+                  event
+                ) =>
+                  setSearch(
+                    event.target
+                      .value
                   )
+                }
+                placeholder="Buscar evento o ubicación..."
+                className="h-13 w-full rounded-2xl border border-slate-200 bg-slate-50 pl-12 pr-4 text-sm font-medium text-slate-950 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+              />
+            </div>
+
+            {/* CATEGORY */}
+
+            <div className="relative">
+              <SlidersHorizontal
+                size={18}
+                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-brand-500"
+              />
+
+              <select
+                value={
+                  category
+                }
+                onChange={(
+                  event
+                ) =>
+                  setCategory(
+                    event.target
+                      .value
+                  )
+                }
+                className="h-13 w-full cursor-pointer appearance-none rounded-2xl border border-slate-200 bg-slate-50 pl-12 pr-10 text-sm font-bold text-slate-700 outline-none transition hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10"
+              >
+                <option value="all">
+                  Todas las categorías
+                </option>
+
+                {categories.map(
+                  (item) => (
+                    <option
+                      key={
+                        item
+                      }
+                      value={
+                        item
+                      }
+                    >
+                      {
+                        item
+                      }
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================
+          EVENTS
+          ====================================================== */}
+
+      <section className="py-12 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {!loading &&
+            !error && (
+              <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-sm font-semibold text-slate-500">
+                  <strong className="text-slate-950">
+                    {
+                      filteredEvents.length
+                    }
+                  </strong>{" "}
+                  evento
+                  {filteredEvents.length !==
+                  1
+                    ? "s"
+                    : ""}{" "}
+                  encontrado
+                  {filteredEvents.length !==
+                  1
+                    ? "s"
+                    : ""}
+                </p>
+
+                {hasFilters && (
+                  <button
+                    type="button"
+                    onClick={
+                      clearFilters
+                    }
+                    className="inline-flex w-fit items-center gap-2 text-sm font-black text-brand-600 transition hover:text-brand-700"
+                  >
+                    <X
+                      size={16}
+                    />
+
+                    Limpiar filtros
+                  </button>
                 )}
               </div>
             )}
+
+          {loading ? (
+            <EventsPageSkeleton />
+          ) : error ? (
+            <ErrorState
+              onRetry={
+                handleRetry
+              }
+            />
+          ) : filteredEvents.length ===
+            0 ? (
+            <EmptyState
+              title="No encontramos resultados"
+              description={
+                hasFilters
+                  ? "Prueba cambiando los filtros o utilizando otra búsqueda."
+                  : "Todavía no hay eventos publicados."
+              }
+            />
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {filteredEvents.map(
+                (
+                  event,
+                  index
+                ) => (
+                  <motion.div
+                    key={
+                      event.id
+                    }
+                    initial={{
+                      opacity: 0,
+                      y: 18,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    transition={{
+                      delay:
+                        Math.min(
+                          index *
+                            0.04,
+                          0.28
+                        ),
+                    }}
+                  >
+                    <EventCard
+                      event={
+                        event
+                      }
+                    />
+                  </motion.div>
+                )
+              )}
+            </div>
+          )}
         </div>
-      </div>
+      </section>
     </main>
+  );
+}
+
+// ============================================================
+// SKELETON
+// ============================================================
+
+function EventsPageSkeleton() {
+  return (
+    <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      {[
+        1, 2, 3, 4, 5, 6,
+      ].map((item) => (
+        <div
+          key={item}
+          className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"
+        >
+          <div className="aspect-[16/10] animate-pulse bg-slate-200" />
+
+          <div className="space-y-4 p-6">
+            <div className="h-6 w-2/3 animate-pulse rounded bg-slate-200" />
+
+            <div className="h-4 w-1/2 animate-pulse rounded bg-slate-200" />
+
+            <div className="h-4 w-3/4 animate-pulse rounded bg-slate-200" />
+
+            <div className="h-11 w-full animate-pulse rounded-xl bg-slate-200" />
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 
