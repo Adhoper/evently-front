@@ -34,6 +34,9 @@ export interface CreateEventRequest {
   startTime: string;
   location: string;
   capacity: number;
-  imageUrl: string | null;
   eventCategoryId: number;
+}
+
+export interface EventImageResponse {
+  imageUrl: string;
 }

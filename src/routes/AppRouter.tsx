@@ -1,7 +1,4 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import PublicLayout from "../layouts/PublicLayout";
 import OrganizerLayout from "../layouts/OrganizerLayout";
@@ -18,8 +15,6 @@ import AccountPage from "../pages/account/AccountPage";
 
 import MyTicketsPage from "../pages/tickets/MyTicketsPage";
 
-
-
 import ProtectedRoute from "../components/ProtectedRoute";
 import RoleProtectedRoute from "../components/RoleProtectedRoute";
 import OrganizerDashboardPage from "../components/organizer/OrganizerDashboardPage";
@@ -27,142 +22,117 @@ import MyEventsPage from "../components/organizer/MyEventsPage";
 import CreateEventPage from "../components/organizer/CreateEventPage";
 import EditEventPage from "../components/organizer/EditEventPage";
 import CheckInPage from "../components/organizer/CheckInPage";
+import EventAttendeesPage from "../pages/organizer/EventAttendeesPage";
 
-const router =
-  createBrowserRouter([
-    // =========================================================
-    // PUBLIC
-    // =========================================================
+const router = createBrowserRouter([
+  // =========================================================
+  // PUBLIC
+  // =========================================================
 
-    {
-      path: "/",
-      element: <PublicLayout />,
+  {
+    path: "/",
+    element: <PublicLayout />,
 
-      children: [
-        {
-          index: true,
-          element: (
-            <HomePage />
-          ),
-        },
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
 
-        {
-          path: "events",
-          element: (
-            <EventsPage />
-          ),
-        },
+      {
+        path: "events",
+        element: <EventsPage />,
+      },
 
-        {
-          path: "events/:id",
-          element: (
-            <EventDetailPage />
-          ),
-        },
+      {
+        path: "events/:id",
+        element: <EventDetailPage />,
+      },
 
-        {
-          path: "login",
-          element: (
-            <LoginPage />
-          ),
-        },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
 
-        {
-          path: "register",
-          element: (
-            <RegisterPage />
-          ),
-        },
+      {
+        path: "register",
+        element: <RegisterPage />,
+      },
 
-        {
-          path: "account",
-          element: (
-            <ProtectedRoute>
-              <AccountPage />
-            </ProtectedRoute>
-          ),
-        },
+      {
+        path: "account",
+        element: (
+          <ProtectedRoute>
+            <AccountPage />
+          </ProtectedRoute>
+        ),
+      },
 
-        {
-          path: "tickets",
-          element: (
-            <ProtectedRoute>
-              <MyTicketsPage />
-            </ProtectedRoute>
-          ),
-        },
+      {
+        path: "tickets",
+        element: (
+          <ProtectedRoute>
+            <MyTicketsPage />
+          </ProtectedRoute>
+        ),
+      },
 
-        {
-          path: "*",
-          element: (
-            <NotFoundPage />
-          ),
-        },
-      ],
-    },
+      {
+        path: "*",
+        element: <NotFoundPage />,
+      },
+    ],
+  },
 
-    // =========================================================
-    // ORGANIZER
-    // =========================================================
+  // =========================================================
+  // ORGANIZER
+  // =========================================================
 
-    {
-      path: "/organizer",
+  {
+    path: "/organizer",
 
-      element: (
-        <RoleProtectedRoute
-          allowedRoles={[
-            "Organizer",
-          ]}
-        >
-          <OrganizerLayout />
-        </RoleProtectedRoute>
-      ),
+    element: (
+      <RoleProtectedRoute allowedRoles={["Organizer"]}>
+        <OrganizerLayout />
+      </RoleProtectedRoute>
+    ),
 
-      children: [
-        {
-          index: true,
-          element: (
-            <OrganizerDashboardPage />
-          ),
-        },
+    children: [
+      {
+        index: true,
+        element: <OrganizerDashboardPage />,
+      },
 
-        {
-          path: "events",
-          element: (
-            <MyEventsPage />
-          ),
-        },
+      {
+        path: "events",
+        element: <MyEventsPage />,
+      },
 
-        {
-          path: "events/create",
-          element: (
-            <CreateEventPage />
-          ),
-        },
+      {
+        path: "events/create",
+        element: <CreateEventPage />,
+      },
 
-        {
-          path: "events/:id/edit",
-          element: (
-            <EditEventPage />
-          ),
-        },
+      {
+        path: "events/:id/edit",
+        element: <EditEventPage />,
+      },
 
-        {
-          path: "check-in",
-          element: (
-            <CheckInPage />
-          ),
-        },
-      ],
-    },
-  ]);
+      {
+        path: "check-in",
+        element: <CheckInPage />,
+      },
+
+      {
+        path: "events/:id/attendees",
+        element: <EventAttendeesPage />,
+      },
+    ],
+  },
+]);
 
 function AppRouter() {
-  return (
-    <RouterProvider
-      router={router}
-    />
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default AppRouter;

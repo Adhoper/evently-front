@@ -72,17 +72,6 @@ export const eventSchema =
         100000,
         "La capacidad máxima es 100,000."
       ),
-
-    imageUrl: z
-      .union([
-        z
-          .string()
-          .url(
-            "Ingresa una URL válida."
-          ),
-        z.literal(""),
-      ])
-      .optional(),
   })
   .refine(
     (data) => {

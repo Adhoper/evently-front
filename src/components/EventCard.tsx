@@ -21,6 +21,10 @@ import {
   formatEventDate,
 } from "../utils/date";
 
+import {
+  resolveImageUrl,
+} from "../utils/image";
+
 interface EventCardProps {
   event: Event;
 }
@@ -44,7 +48,7 @@ function EventCard({
       >
         {event.imageUrl ? (
           <img
-            src={event.imageUrl}
+            src={resolveImageUrl(event.imageUrl) ?? ""}
             alt={event.title}
             className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
           />

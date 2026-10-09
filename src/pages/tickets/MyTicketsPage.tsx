@@ -51,6 +51,10 @@ import {
   formatEventDate,
 } from "../../utils/date";
 
+import {
+  resolveImageUrl,
+} from "../../utils/image";
+
 function MyTicketsPage() {
   const [
     tickets,
@@ -274,7 +278,7 @@ function MyTicketsPage() {
                         {ticket.eventImageUrl ? (
                           <img
                             src={
-                              ticket.eventImageUrl
+                              resolveImageUrl(ticket.eventImageUrl) ?? ""
                             }
                             alt={
                               ticket.eventTitle

@@ -4,6 +4,7 @@ import type {
   CreateEventRequest,
   Event,
   EventDetail,
+  EventImageResponse,
 } from "../types/event";
 
 export const getPublicEvents =
@@ -97,4 +98,35 @@ export const cancelEvent =
       );
 
     return response.data;
+  };
+
+export const uploadEventImage =
+  async (
+    eventId: number,
+    file: File
+  ): Promise<EventImageResponse> => {
+    const formData =
+      new FormData();
+
+    formData.append(
+      "file",
+      file
+    );
+
+    const response =
+      await api.post<EventImageResponse>(
+        `/events/${eventId}/image`,
+        formData
+      );
+
+    return response.data;
+  };
+
+export const removeEventImage =
+  async (
+    eventId: number
+  ): Promise<void> => {
+    await api.delete(
+      `/events/${eventId}/image`
+    );
   };

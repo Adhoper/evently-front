@@ -60,6 +60,10 @@ import {
   formatEventDate,
 } from "../../utils/date";
 
+import {
+  resolveImageUrl,
+} from "../../utils/image";
+
 function EventDetailPage() {
   const { id } =
     useParams();
@@ -354,7 +358,7 @@ function EventDetailPage() {
               <>
                 <img
                   src={
-                    event.imageUrl
+                    resolveImageUrl(event.imageUrl) ?? ""
                   }
                   alt={
                     event.title
