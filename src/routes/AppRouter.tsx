@@ -22,6 +22,8 @@ import AdminDashboardPage from "../pages/admin/AdminDashboardPage";
 import AdminUsersPage from "../pages/admin/AdminUsersPage";
 import AdminEventsPage from "../pages/admin/AdminEventsPage";
 import AdminCategoriesPage from "../pages/admin/AdminCategoriesPage";
+import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
+import ResetPasswordPage from "../pages/auth/ResetPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,15 @@ const router = createBrowserRouter([
       { path: "events/:id", element: <EventDetailPage /> },
       { path: "login", element: <LoginPage /> },
       { path: "register", element: <RegisterPage /> },
+      {
+        path: "forgot-password",
+        element: <ForgotPasswordPage />,
+      },
+
+      {
+        path: "reset-password",
+        element: <ResetPasswordPage />,
+      },
       {
         path: "account",
         element: (

@@ -1,14 +1,21 @@
 import { z } from "zod";
 
+const passwordSchema = z
+  .string()
+  .min(8, "Debe tener al menos 8 caracteres.")
+  .max(100, "La contraseña es demasiado larga.")
+  .regex(/[A-Z]/, "Debe contener al menos una letra mayúscula.")
+  .regex(/[a-z]/, "Debe contener al menos una letra minúscula.")
+  .regex(/[0-9]/, "Debe contener al menos un número.");
+
 export const loginSchema = z.object({
   email: z
     .string()
+    .trim()
     .min(1, "El correo es obligatorio.")
     .email("Ingresa un correo electrónico válido."),
 
-  password: z
-    .string()
-    .min(1, "La contraseña es obligatoria."),
+  password: z.string().min(1, "La contraseña es obligatoria."),
 });
 
 export const registerSchema = z
@@ -31,35 +38,36 @@ export const registerSchema = z
       .min(1, "El correo es obligatorio.")
       .email("Ingresa un correo electrónico válido."),
 
-    password: z
-      .string()
-      .min(8, "Debe tener al menos 8 caracteres.")
-      .max(100, "La contraseña es demasiado larga.")
-      .regex(
-        /[A-Z]/,
-        "Debe contener al menos una letra mayúscula."
-      )
-      .regex(
-        /[a-z]/,
-        "Debe contener al menos una letra minúscula."
-      )
-      .regex(
-        /[0-9]/,
-        "Debe contener al menos un número."
-      ),
+    password: passwordSchema,
 
-    confirmPassword: z
-      .string()
-      .min(1, "Confirma tu contraseña."),
+    confirmPassword: z.string().min(1, "Confirma tu contraseña."),
   })
-  .refine(
-    (data) =>
-      data.password === data.confirmPassword,
-    {
-      message: "Las contraseñas no coinciden.",
-      path: ["confirmPassword"],
-    }
-  );
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Las contraseñas no coinciden.",
+    path: ["confirmPassword"],
+  });
 
-export type RegisterFormData =
-  z.infer<typeof registerSchema>;
+export const forgotPasswordSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(1, "El correo es obligatorio.")
+    .email("Ingresa un correo electrónico válido."),
+});
+
+export const resetPasswordSchema = z
+  .object({
+    password: passwordSchema,
+
+    confirmPassword: z.string().min(1, "Confirma tu contraseña."),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Las contraseñas no coinciden.",
+    path: ["confirmPassword"],
+  });
+
+export type RegisterFormData = z.infer<typeof registerSchema>;
+
+export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
+
+export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;

@@ -1,6 +1,4 @@
-import {
-  useState,
-} from "react";
+import { useState } from "react";
 
 import {
   Eye,
@@ -9,9 +7,7 @@ import {
   Sparkles,
 } from "lucide-react";
 
-import {
-  motion,
-} from "motion/react";
+import { motion } from "motion/react";
 
 import {
   Link,
@@ -19,13 +15,9 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-import {
-  useForm,
-} from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-import {
-  zodResolver,
-} from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import axios from "axios";
 
@@ -106,7 +98,6 @@ function LoginPage() {
           data
         );
 
-        
         navigate(
           from,
           {
@@ -140,8 +131,8 @@ function LoginPage() {
     };
 
   return (
-    <main className="relative flex min-h-[calc(100vh-72px)] items-center overflow-hidden bg-slate-100 px-4 py-12 dark:bg-[#0b1120] sm:py-16">
-      
+    <main className="relative flex min-h-[calc(100dvh-72px)] items-center overflow-hidden bg-slate-100 px-4 py-8 dark:bg-slate-950 sm:px-6 sm:py-12 lg:py-16">
+      {/* BACKGROUND */}
 
       <motion.div
         animate={{
@@ -153,7 +144,7 @@ function LoginPage() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-brand-200/40 blur-3xl dark:bg-brand-900/20"
+        className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-brand-200/35 blur-3xl dark:bg-brand-900/20"
       />
 
       <motion.div
@@ -169,10 +160,10 @@ function LoginPage() {
         className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-accent-300/15 blur-3xl dark:bg-accent-400/5"
       />
 
-      
+      {/* CARD */}
 
-      <div className="relative mx-auto grid w-full max-w-6xl overflow-hidden rounded-4xl border border-slate-200 bg-slate-50 shadow-[0_30px_100px_rgba(15,23,42,.12)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_30px_100px_rgba(0,0,0,.35)] lg:grid-cols-[.9fr_1.1fr]">
-        
+      <div className="relative mx-auto grid w-full max-w-md overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-50 shadow-[0_24px_70px_rgba(15,23,42,.12)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_24px_70px_rgba(0,0,0,.35)] lg:max-w-6xl lg:grid-cols-[.9fr_1.1fr] lg:rounded-4xl">
+        {/* DESKTOP VISUAL */}
 
         <div className="relative hidden overflow-hidden bg-linear-to-br from-brand-600 via-brand-800 to-slate-950 p-10 text-white lg:flex lg:flex-col">
           <div className="absolute -right-24 -top-24 h-60 w-60 rounded-full bg-accent-400/20 blur-3xl" />
@@ -220,7 +211,7 @@ function LoginPage() {
           </div>
         </div>
 
-        
+        {/* FORM */}
 
         <motion.div
           initial={{
@@ -234,42 +225,25 @@ function LoginPage() {
           transition={{
             duration: 0.4,
           }}
-          className="p-6 sm:p-10 lg:p-14"
+          className="p-5 sm:p-8 lg:p-14"
         >
-          
-
-          <Link
-            to="/"
-            className="mb-9 inline-flex items-center gap-2.5 lg:hidden"
-          >
-            <div className="grid h-9 w-9 place-items-center rounded-xl bg-brand-600 text-white">
-              <Sparkles
-                size={17}
-              />
-            </div>
-
-            <span className="font-black text-slate-950 dark:text-white">
-              EVENTLY
+          <div className="mb-7">
+            <span className="block text-xs font-black uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+              Bienvenido de nuevo
             </span>
-          </Link>
 
-          <span className="text-xs font-black uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-            Bienvenido de nuevo
-          </span>
+            <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50 sm:text-4xl">
+              Iniciar sesión
+            </h1>
 
-          <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-4xl">
-            Iniciar sesión
-          </h1>
-
-          <p className="mt-3 leading-7 text-slate-500 dark:text-slate-400">
-            Ingresa tus datos para
-            continuar en Evently.
-          </p>
-
-          
+            <p className="mt-3 text-sm leading-6 text-slate-500 dark:text-slate-400 sm:text-base sm:leading-7">
+              Ingresa tus datos para
+              continuar en Evently.
+            </p>
+          </div>
 
           {from !== "/" && (
-            <div className="mt-5 rounded-xl border border-brand-100 bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700 dark:border-brand-900 dark:bg-brand-950/30 dark:text-brand-300">
+            <div className="mb-6 rounded-xl border border-brand-100 bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700 dark:border-brand-900 dark:bg-brand-950/30 dark:text-brand-300">
               Inicia sesión y volverás
               automáticamente al lugar
               donde estabas.
@@ -282,9 +256,9 @@ function LoginPage() {
                 onSubmit
               )
             }
-            className="mt-8 space-y-5"
+            className="space-y-5"
           >
-            
+            {/* EMAIL */}
 
             <div>
               <label
@@ -302,10 +276,10 @@ function LoginPage() {
                   "email"
                 )}
                 placeholder="correo@ejemplo.com"
-                className={`mt-2 w-full rounded-xl border bg-slate-50 px-4 py-3.5 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:bg-slate-50 focus:ring-4 focus:ring-brand-500/10 dark:bg-slate-950 dark:text-white dark:focus:bg-slate-950 ${
+                className={`mt-2 w-full rounded-xl border bg-white px-4 py-3.5 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:ring-4 focus:ring-brand-500/10 dark:bg-slate-950 dark:text-white ${
                   errors.email
                     ? "border-red-300 focus:border-red-500 dark:border-red-800"
-                    : "border-slate-200 focus:border-brand-500 dark:border-slate-700"
+                    : "border-slate-300 focus:border-brand-500 dark:border-slate-700"
                 }`}
               />
 
@@ -329,15 +303,24 @@ function LoginPage() {
               )}
             </div>
 
-            
+            {/* PASSWORD */}
 
             <div>
-              <label
-                htmlFor="password"
-                className="text-sm font-black text-slate-700 dark:text-slate-300"
-              >
-                Contraseña
-              </label>
+              <div className="flex items-center justify-between gap-3">
+                <label
+                  htmlFor="password"
+                  className="text-sm font-black text-slate-700 dark:text-slate-300"
+                >
+                  Contraseña
+                </label>
+
+                <Link
+                  to="/forgot-password"
+                  className="text-xs font-black text-brand-600 transition hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
+                >
+                  ¿La olvidaste?
+                </Link>
+              </div>
 
               <div className="relative mt-2">
                 <input
@@ -352,10 +335,10 @@ function LoginPage() {
                     "password"
                   )}
                   placeholder="••••••••"
-                  className={`w-full rounded-xl border bg-slate-50 px-4 py-3.5 pr-12 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:bg-slate-50 focus:ring-4 focus:ring-brand-500/10 dark:bg-slate-950 dark:text-white dark:focus:bg-slate-950 ${
+                  className={`w-full rounded-xl border bg-white px-4 py-3.5 pr-12 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:ring-4 focus:ring-brand-500/10 dark:bg-slate-950 dark:text-white ${
                     errors.password
                       ? "border-red-300 focus:border-red-500 dark:border-red-800"
-                      : "border-slate-200 focus:border-brand-500 dark:border-slate-700"
+                      : "border-slate-300 focus:border-brand-500 dark:border-slate-700"
                   }`}
                 />
 
@@ -406,7 +389,7 @@ function LoginPage() {
               )}
             </div>
 
-            
+            {/* ERROR */}
 
             {serverError && (
               <motion.div
@@ -424,7 +407,7 @@ function LoginPage() {
               </motion.div>
             )}
 
-            
+            {/* SUBMIT */}
 
             <motion.button
               whileHover={
@@ -456,8 +439,6 @@ function LoginPage() {
                 : "Iniciar sesión"}
             </motion.button>
           </form>
-
-          
 
           <p className="mt-7 text-center text-sm text-slate-500 dark:text-slate-400">
             ¿Aún no tienes una

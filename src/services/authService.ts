@@ -2,8 +2,11 @@ import api from "../api/axios";
 
 import type {
   AuthResponse,
+  ForgotPasswordRequest,
   LoginRequest,
+  MessageResponse,
   RegisterRequest,
+  ResetPasswordRequest,
   User,
 } from "../types/auth";
 
@@ -29,6 +32,28 @@ export const getMe = async (): Promise<User> => {
 
 export const becomeOrganizer = async (): Promise<AuthResponse> => {
   const response = await api.post<AuthResponse>("/users/become-organizer");
+
+  return response.data;
+};
+
+export const forgotPassword = async (
+  data: ForgotPasswordRequest,
+): Promise<MessageResponse> => {
+  const response = await api.post<MessageResponse>(
+    "/auth/forgot-password",
+    data,
+  );
+
+  return response.data;
+};
+
+export const resetPassword = async (
+  data: ResetPasswordRequest,
+): Promise<MessageResponse> => {
+  const response = await api.post<MessageResponse>(
+    "/auth/reset-password",
+    data,
+  );
 
   return response.data;
 };
