@@ -7,7 +7,7 @@ El frontend fue desarrollado con **React + TypeScript**, con una interfaz modern
 ## 🚀 Demo
 
 🔗 **Aplicación:**  
-`[Evently](https://eventlyfront.netlify.app)`
+[`[Evently](https://eventlyfront.netlify.app)`](https://eventlyfront.netlify.app)
 
 ## 📸 Vista del Proyecto
 
