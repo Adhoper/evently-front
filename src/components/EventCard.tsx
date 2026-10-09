@@ -40,7 +40,7 @@ function EventCard({
       transition={{
         duration: 0.2,
       }}
-      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm transition-shadow duration-300 hover:shadow-[0_22px_60px_rgba(15,23,42,0.12)]"
+      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 shadow-sm transition-shadow duration-300 hover:shadow-[0_22px_60px_rgba(15,23,42,0.12)]"
     >
       <Link
         to={`/events/${event.id}`}
@@ -64,7 +64,7 @@ function EventCard({
           </div>
         )}
 
-        <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-white/90 dark:bg-slate-900/90 px-3 py-1.5 text-[11px] font-black uppercase tracking-wide text-brand-700 dark:text-brand-300 shadow-sm backdrop-blur">
+        <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-slate-50/95 dark:bg-slate-900/90 px-3 py-1.5 text-[11px] font-black uppercase tracking-wide text-brand-700 dark:text-brand-300 shadow-sm backdrop-blur">
           {event.categoryName}
         </div>
       </Link>

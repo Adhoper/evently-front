@@ -129,10 +129,6 @@ function AuthProvider({
     async () => {
       const response =
         await becomeOrganizer();
-
-      // IMPORTANTE:
-      // el backend genera un JWT nuevo
-      // porque ahora Role = Organizer.
       saveSession(
         response.token,
         response.user

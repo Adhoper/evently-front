@@ -41,6 +41,8 @@ import {
   formatEventDate,
 } from "../../utils/date";
 
+import Select from "../../components/ui/Select";
+
 type StatusFilter =
   | "all"
   | AttendeeStatus;
@@ -80,10 +82,6 @@ function EventAttendeesPage() {
       "all"
     );
 
-  // ============================================================
-  // LOAD
-  // ============================================================
-
   useEffect(() => {
     if (!id) {
       return;
@@ -121,10 +119,6 @@ function EventAttendeesPage() {
       cancelled = true;
     };
   }, [id]);
-
-  // ============================================================
-  // FILTER
-  // ============================================================
 
   const filteredAttendees =
     useMemo(() => {
@@ -180,10 +174,6 @@ function EventAttendeesPage() {
     search.trim().length > 0 ||
     statusFilter !== "all";
 
-  // ============================================================
-  // LOADING
-  // ============================================================
-
   if (loading) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center">
@@ -200,10 +190,6 @@ function EventAttendeesPage() {
       </div>
     );
   }
-
-  // ============================================================
-  // ERROR
-  // ============================================================
 
   if (
     error ||
@@ -244,9 +230,7 @@ function EventAttendeesPage() {
   return (
     <div className="px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
       <div className="mx-auto max-w-7xl">
-        {/* ====================================================
-            BACK
-            ==================================================== */}
+        
 
         <Link
           to="/organizer/events"
@@ -259,9 +243,7 @@ function EventAttendeesPage() {
           Volver a mis eventos
         </Link>
 
-        {/* ====================================================
-            HEADER
-            ==================================================== */}
+        
 
         <motion.div
           initial={{
@@ -322,9 +304,7 @@ function EventAttendeesPage() {
           </div>
         </motion.div>
 
-        {/* ====================================================
-            STATS
-            ==================================================== */}
+        
 
         <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
           <StatBox
@@ -370,9 +350,7 @@ function EventAttendeesPage() {
           />
         </div>
 
-        {/* ====================================================
-            PROGRESS
-            ==================================================== */}
+        
 
         <section className="mt-6 grid gap-4 md:grid-cols-2">
           <RateCard
@@ -393,11 +371,9 @@ function EventAttendeesPage() {
           />
         </section>
 
-        {/* ====================================================
-            FILTERS
-            ==================================================== */}
+        
 
-        <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-6">
+        <section className="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-6">
           <div className="grid gap-3 lg:grid-cols-[1fr_240px]">
             <div className="relative">
               <Search
@@ -413,11 +389,11 @@ function EventAttendeesPage() {
                   )
                 }
                 placeholder="Buscar por nombre o correo..."
-                className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm text-slate-950 outline-none transition focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:bg-slate-950"
+                className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm text-slate-950 outline-none transition focus:border-brand-500 focus:bg-slate-50 focus:ring-4 focus:ring-brand-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:bg-slate-950"
               />
             </div>
 
-            <select
+            <Select
               value={
                 statusFilter
               }
@@ -427,7 +403,6 @@ function EventAttendeesPage() {
                     .value as StatusFilter
                 )
               }
-              className="h-12 cursor-pointer rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm font-bold text-slate-700 outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
             >
               <option value="all">
                 Todos los estados
@@ -444,7 +419,7 @@ function EventAttendeesPage() {
               <option value="Cancelled">
                 Cancelada
               </option>
-            </select>
+            </Select>
           </div>
 
           <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -479,14 +454,12 @@ function EventAttendeesPage() {
           </div>
         </section>
 
-        {/* ====================================================
-            ATTENDEES
-            ==================================================== */}
+        
 
         <section className="mt-5">
           {filteredAttendees.length ===
           0 ? (
-            <div className="rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center dark:border-slate-700 dark:bg-slate-900">
+            <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 px-6 py-16 text-center dark:border-slate-700 dark:bg-slate-900">
               <Users
                 size={35}
                 className="mx-auto text-slate-300 dark:text-slate-600"
@@ -504,9 +477,7 @@ function EventAttendeesPage() {
             </div>
           ) : (
             <>
-              {/* ================================================
-                  MOBILE CARDS
-                  ================================================ */}
+              
 
               <div className="space-y-3 md:hidden">
                 {filteredAttendees.map(
@@ -523,11 +494,9 @@ function EventAttendeesPage() {
                 )}
               </div>
 
-              {/* ================================================
-                  DESKTOP TABLE
-                  ================================================ */}
+              
 
-              <div className="hidden overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 md:block">
+              <div className="hidden overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:block">
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[850px]">
                     <thead className="border-b border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950">
@@ -581,10 +550,6 @@ function EventAttendeesPage() {
   );
 }
 
-// ============================================================
-// STAT BOX
-// ============================================================
-
 function StatBox({
   label,
   value,
@@ -615,7 +580,7 @@ function StatBox({
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
       <p className="text-[10px] font-black uppercase tracking-wide text-slate-400">
         {label}
       </p>
@@ -629,10 +594,6 @@ function StatBox({
   );
 }
 
-// ============================================================
-// RATE CARD
-// ============================================================
-
 function RateCard({
   title,
   description,
@@ -645,7 +606,7 @@ function RateCard({
   green?: boolean;
 }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-900">
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="font-black text-slate-950 dark:text-white">
@@ -690,10 +651,6 @@ function RateCard({
   );
 }
 
-// ============================================================
-// STATUS
-// ============================================================
-
 function AttendeeStatusBadge({
   status,
 }: {
@@ -736,17 +693,13 @@ function AttendeeStatusBadge({
   );
 }
 
-// ============================================================
-// MOBILE CARD
-// ============================================================
-
 function AttendeeMobileCard({
   attendee,
 }: {
   attendee: Attendee;
 }) {
   return (
-    <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <article className="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
       <div className="flex items-start justify-between gap-3">
         <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-50 font-black text-brand-600 dark:bg-brand-950/40 dark:text-brand-400">
           {attendee.fullName
@@ -799,10 +752,6 @@ function AttendeeMobileCard({
     </article>
   );
 }
-
-// ============================================================
-// DESKTOP ROW
-// ============================================================
 
 function AttendeeRow({
   attendee,
@@ -867,10 +816,6 @@ function AttendeeRow({
   );
 }
 
-// ============================================================
-// TABLE HEADER
-// ============================================================
-
 function TableHeader({
   children,
 }: {
@@ -883,10 +828,6 @@ function TableHeader({
     </th>
   );
 }
-
-// ============================================================
-// DATE INFO
-// ============================================================
 
 function DateInfo({
   label,
@@ -907,10 +848,6 @@ function DateInfo({
     </div>
   );
 }
-
-// ============================================================
-// FORMAT DATETIME
-// ============================================================
 
 function formatDateTime(
   value: string

@@ -102,7 +102,7 @@ export function EmptyState({
         opacity: 1,
         y: 0,
       }}
-      className="rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-16 text-center shadow-sm"
+      className="rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-5 py-16 text-center shadow-sm"
     >
       <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-50 dark:bg-brand-900/25 text-brand-600">
         <CalendarSearch size={28} />

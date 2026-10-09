@@ -55,10 +55,6 @@ function HomePage() {
     setError,
   ] = useState(false);
 
-  // ============================================================
-  // INITIAL LOAD
-  // ============================================================
-
   useEffect(() => {
     let cancelled = false;
 
@@ -95,10 +91,6 @@ function HomePage() {
     };
   }, []);
 
-  // ============================================================
-  // RETRY
-  // ============================================================
-
   const handleRetry =
     async () => {
       try {
@@ -122,18 +114,12 @@ function HomePage() {
       }
     };
 
-  // ============================================================
-  // RENDER
-  // ============================================================
-
   return (
     <main className="overflow-hidden">
-      {/* ======================================================
-          HERO
-          ====================================================== */}
+      
 
-      <section className="relative bg-white dark:bg-slate-900">
-        {/* DECORATIVE BLUE LIGHT */}
+      <section className="relative bg-slate-50 dark:bg-slate-900">
+        
 
         <motion.div
           animate={{
@@ -148,7 +134,7 @@ function HomePage() {
           className="pointer-events-none absolute -right-32 top-10 h-105 w-105 rounded-full bg-brand-200/50 blur-3xl"
         />
 
-        {/* DECORATIVE YELLOW LIGHT */}
+        
 
         <motion.div
           animate={{
@@ -164,7 +150,7 @@ function HomePage() {
         />
 
         <div className="relative mx-auto grid min-h-[calc(100vh-72px)] max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_.9fr] lg:px-8 lg:py-24">
-          {/* HERO CONTENT */}
+          
 
           <motion.div
             initial={{
@@ -224,7 +210,7 @@ function HomePage() {
 
               <a
                 href="#featured"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3 text-sm font-black text-slate-700 dark:text-slate-200 transition hover:border-brand-200 hover:bg-brand-50 dark:hover:bg-brand-900/30 hover:text-brand-700"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-6 py-3 text-sm font-black text-slate-700 dark:text-slate-200 transition hover:border-brand-200 hover:bg-brand-50 dark:hover:bg-brand-900/30 hover:text-brand-700"
               >
                 <Search
                   size={17}
@@ -235,9 +221,7 @@ function HomePage() {
             </div>
           </motion.div>
 
-          {/* ==================================================
-              HERO VISUAL
-              ================================================== */}
+          
 
           <motion.div
             initial={{
@@ -311,9 +295,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ======================================================
-          BENEFITS
-          ====================================================== */}
+      
 
       <section className="border-y border-slate-200 dark:border-slate-800 bg-slate-950 py-7">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-4 sm:grid-cols-3 sm:px-6 lg:px-8">
@@ -341,13 +323,11 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ======================================================
-          FEATURED EVENTS
-          ====================================================== */}
+      
 
       <section
         id="featured"
-        className="bg-slate-50 dark:bg-slate-950 py-20 sm:py-24"
+        className="bg-slate-100 dark:bg-[#0b1120] py-20 sm:py-24"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
@@ -437,11 +417,9 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ======================================================
-          CTA
-          ====================================================== */}
+      
 
-      <section className="bg-white dark:bg-slate-900 py-20 sm:py-24">
+      <section className="bg-slate-50 dark:bg-slate-900 py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-4xl bg-slate-950 px-6 py-12 text-white sm:px-10 sm:py-16 lg:px-16">
             <div className="absolute -right-20 -top-24 h-72 w-72 rounded-full bg-brand-600/40 blur-3xl" />
@@ -469,7 +447,7 @@ function HomePage() {
 
               <Link
                 to="/account"
-                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white dark:bg-slate-900 px-5 py-3 text-sm font-black text-slate-950 dark:text-slate-50 transition hover:-translate-y-0.5 hover:bg-brand-50 dark:hover:bg-brand-900/30"
+                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-slate-50 dark:bg-slate-900 px-5 py-3 text-sm font-black text-slate-950 dark:text-slate-50 transition hover:-translate-y-0.5 hover:bg-brand-50 dark:hover:bg-brand-900/30"
               >
                 Comenzar
 
@@ -484,10 +462,6 @@ function HomePage() {
     </main>
   );
 }
-
-// ============================================================
-// FEATURE
-// ============================================================
 
 interface FeatureProps {
   icon: ElementType;
@@ -519,10 +493,6 @@ function Feature({
   );
 }
 
-// ============================================================
-// SKELETON
-// ============================================================
-
 function EventsSkeleton() {
   return (
     <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -530,7 +500,7 @@ function EventsSkeleton() {
         (item) => (
           <div
             key={item}
-            className="overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
+            className="overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 shadow-sm"
           >
             <div className="aspect-16/10 animate-pulse bg-slate-200 dark:bg-slate-700" />
 

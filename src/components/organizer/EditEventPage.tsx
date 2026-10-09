@@ -56,10 +56,6 @@ function EditEventPage() {
   const [loading, setLoading] =
     useState(Boolean(id));
 
-  // ============================================================
-  // LOAD
-  // ============================================================
-
   useEffect(() => {
     if (!id) {
       return;
@@ -94,10 +90,6 @@ function EditEventPage() {
       cancelled = true;
     };
   }, [id]);
-
-  // ============================================================
-  // SUBMIT
-  // ============================================================
 
   const handleSubmit =
     async (
@@ -156,10 +148,6 @@ function EditEventPage() {
         return;
       }
 
-      // ========================================================
-      // IMAGE
-      // ========================================================
-
       try {
         if (imageChange.file) {
           await uploadEventImage(
@@ -203,8 +191,8 @@ function EditEventPage() {
             );
 
           setEvent(refreshed);
-        } catch {
-          // La información principal ya fue guardada.
+        } catch (refreshError) {
+          console.error(refreshError);
         }
 
         return;
@@ -218,10 +206,6 @@ function EditEventPage() {
         "/organizer/events"
       );
     };
-
-  // ============================================================
-  // STATES
-  // ============================================================
 
   if (loading) {
     return (

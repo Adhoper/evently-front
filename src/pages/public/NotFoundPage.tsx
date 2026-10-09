@@ -14,7 +14,7 @@ import {
 
 function NotFoundPage() {
   return (
-    <main className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950 px-4 py-16">
+    <main className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-slate-100 dark:bg-[#0b1120] px-4 py-16">
       <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-200/40 blur-3xl" />
 
       <motion.div
@@ -63,7 +63,7 @@ function NotFoundPage() {
 
           <Link
             to="/events"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-5 py-3.5 text-sm font-black text-slate-700 dark:text-slate-200"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-5 py-3.5 text-sm font-black text-slate-700 dark:text-slate-200"
           >
             <Sparkles
               size={17}

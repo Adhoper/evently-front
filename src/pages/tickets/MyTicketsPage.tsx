@@ -79,10 +79,6 @@ function MyTicketsPage() {
     setCancelling,
   ] = useState(false);
 
-  // ============================================================
-  // LOAD
-  // ============================================================
-
   useEffect(() => {
     let cancelled = false;
 
@@ -111,10 +107,6 @@ function MyTicketsPage() {
       cancelled = true;
     };
   }, []);
-
-  // ============================================================
-  // CANCEL
-  // ============================================================
 
   const handleCancel =
     async () => {
@@ -196,7 +188,7 @@ function MyTicketsPage() {
 
   return (
     <>
-      <main className="min-h-[70vh] bg-slate-50 py-10 dark:bg-slate-950 sm:py-16">
+      <main className="min-h-[70vh] bg-slate-100 py-10 dark:bg-[#0b1120] sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{
@@ -269,10 +261,10 @@ function MyTicketsPage() {
                           0.3
                         ),
                     }}
-                    className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900"
+                    className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm dark:border-slate-800 dark:bg-slate-900"
                   >
                     <div className="grid lg:grid-cols-[220px_minmax(0,1fr)_260px]">
-                      {/* IMAGE */}
+                      
 
                       <div className="aspect-16/9 overflow-hidden bg-slate-900 lg:aspect-auto lg:min-h-64">
                         {ticket.eventImageUrl ? (
@@ -295,7 +287,7 @@ function MyTicketsPage() {
                         )}
                       </div>
 
-                      {/* INFO */}
+                      
 
                       <div className="p-6 sm:p-7">
                         <div className="flex flex-wrap items-center gap-2">
@@ -387,7 +379,7 @@ function MyTicketsPage() {
                         </div>
                       </div>
 
-                      {/* QR */}
+                      
 
                       <div className="relative border-t border-dashed border-slate-300 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-950 lg:border-l lg:border-t-0">
                         {ticket.status ===

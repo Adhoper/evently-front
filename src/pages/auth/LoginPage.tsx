@@ -69,10 +69,6 @@ function LoginPage() {
       null
     );
 
-  // ============================================================
-  // RETURN URL
-  // ============================================================
-
   const locationState =
     location.state as
       | LoginLocationState
@@ -81,10 +77,6 @@ function LoginPage() {
   const from =
     locationState?.from ??
     "/";
-
-  // ============================================================
-  // FORM
-  // ============================================================
 
   const {
     register,
@@ -101,10 +93,6 @@ function LoginPage() {
         ),
     });
 
-  // ============================================================
-  // LOGIN
-  // ============================================================
-
   const onSubmit =
     async (
       data: LoginRequest
@@ -118,11 +106,7 @@ function LoginPage() {
           data
         );
 
-        /*
-         * Si el usuario llegó al login
-         * desde un evento, volverá a ese
-         * evento después de autenticarse.
-         */
+        
         navigate(
           from,
           {
@@ -156,10 +140,8 @@ function LoginPage() {
     };
 
   return (
-    <main className="relative flex min-h-[calc(100vh-72px)] items-center overflow-hidden bg-slate-50 px-4 py-12 dark:bg-slate-950 sm:py-16">
-      {/* ======================================================
-          DECORATIVE BACKGROUND
-          ====================================================== */}
+    <main className="relative flex min-h-[calc(100vh-72px)] items-center overflow-hidden bg-slate-100 px-4 py-12 dark:bg-[#0b1120] sm:py-16">
+      
 
       <motion.div
         animate={{
@@ -187,14 +169,10 @@ function LoginPage() {
         className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-accent-300/15 blur-3xl dark:bg-accent-400/5"
       />
 
-      {/* ======================================================
-          LOGIN CARD
-          ====================================================== */}
+      
 
-      <div className="relative mx-auto grid w-full max-w-6xl overflow-hidden rounded-4xl border border-slate-200 bg-white shadow-[0_30px_100px_rgba(15,23,42,.12)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_30px_100px_rgba(0,0,0,.35)] lg:grid-cols-[.9fr_1.1fr]">
-        {/* ====================================================
-            LEFT VISUAL
-            ==================================================== */}
+      <div className="relative mx-auto grid w-full max-w-6xl overflow-hidden rounded-4xl border border-slate-200 bg-slate-50 shadow-[0_30px_100px_rgba(15,23,42,.12)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_30px_100px_rgba(0,0,0,.35)] lg:grid-cols-[.9fr_1.1fr]">
+        
 
         <div className="relative hidden overflow-hidden bg-linear-to-br from-brand-600 via-brand-800 to-slate-950 p-10 text-white lg:flex lg:flex-col">
           <div className="absolute -right-24 -top-24 h-60 w-60 rounded-full bg-accent-400/20 blur-3xl" />
@@ -242,9 +220,7 @@ function LoginPage() {
           </div>
         </div>
 
-        {/* ====================================================
-            FORM
-            ==================================================== */}
+        
 
         <motion.div
           initial={{
@@ -260,7 +236,7 @@ function LoginPage() {
           }}
           className="p-6 sm:p-10 lg:p-14"
         >
-          {/* MOBILE BRAND */}
+          
 
           <Link
             to="/"
@@ -290,7 +266,7 @@ function LoginPage() {
             continuar en Evently.
           </p>
 
-          {/* RETURN INFORMATION */}
+          
 
           {from !== "/" && (
             <div className="mt-5 rounded-xl border border-brand-100 bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700 dark:border-brand-900 dark:bg-brand-950/30 dark:text-brand-300">
@@ -308,7 +284,7 @@ function LoginPage() {
             }
             className="mt-8 space-y-5"
           >
-            {/* EMAIL */}
+            
 
             <div>
               <label
@@ -326,7 +302,7 @@ function LoginPage() {
                   "email"
                 )}
                 placeholder="correo@ejemplo.com"
-                className={`mt-2 w-full rounded-xl border bg-slate-50 px-4 py-3.5 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:bg-white focus:ring-4 focus:ring-brand-500/10 dark:bg-slate-950 dark:text-white dark:focus:bg-slate-950 ${
+                className={`mt-2 w-full rounded-xl border bg-slate-50 px-4 py-3.5 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:bg-slate-50 focus:ring-4 focus:ring-brand-500/10 dark:bg-slate-950 dark:text-white dark:focus:bg-slate-950 ${
                   errors.email
                     ? "border-red-300 focus:border-red-500 dark:border-red-800"
                     : "border-slate-200 focus:border-brand-500 dark:border-slate-700"
@@ -353,7 +329,7 @@ function LoginPage() {
               )}
             </div>
 
-            {/* PASSWORD */}
+            
 
             <div>
               <label
@@ -376,7 +352,7 @@ function LoginPage() {
                     "password"
                   )}
                   placeholder="••••••••"
-                  className={`w-full rounded-xl border bg-slate-50 px-4 py-3.5 pr-12 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:bg-white focus:ring-4 focus:ring-brand-500/10 dark:bg-slate-950 dark:text-white dark:focus:bg-slate-950 ${
+                  className={`w-full rounded-xl border bg-slate-50 px-4 py-3.5 pr-12 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:bg-slate-50 focus:ring-4 focus:ring-brand-500/10 dark:bg-slate-950 dark:text-white dark:focus:bg-slate-950 ${
                     errors.password
                       ? "border-red-300 focus:border-red-500 dark:border-red-800"
                       : "border-slate-200 focus:border-brand-500 dark:border-slate-700"
@@ -430,7 +406,7 @@ function LoginPage() {
               )}
             </div>
 
-            {/* SERVER ERROR */}
+            
 
             {serverError && (
               <motion.div
@@ -448,7 +424,7 @@ function LoginPage() {
               </motion.div>
             )}
 
-            {/* SUBMIT */}
+            
 
             <motion.button
               whileHover={
@@ -481,7 +457,7 @@ function LoginPage() {
             </motion.button>
           </form>
 
-          {/* REGISTER */}
+          
 
           <p className="mt-7 text-center text-sm text-slate-500 dark:text-slate-400">
             ¿Aún no tienes una

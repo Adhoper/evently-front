@@ -56,10 +56,6 @@ function OrganizerDashboardPage() {
     setError,
   ] = useState(false);
 
-  // ============================================================
-  // LOAD
-  // ============================================================
-
   useEffect(() => {
     let cancelled = false;
 
@@ -92,10 +88,6 @@ function OrganizerDashboardPage() {
     };
   }, []);
 
-  // ============================================================
-  // LOADING
-  // ============================================================
-
   if (loading) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center px-4">
@@ -112,10 +104,6 @@ function OrganizerDashboardPage() {
       </div>
     );
   }
-
-  // ============================================================
-  // ERROR
-  // ============================================================
 
   if (
     error ||
@@ -147,9 +135,7 @@ function OrganizerDashboardPage() {
   return (
     <div className="px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
       <div className="mx-auto max-w-7xl">
-        {/* ====================================================
-            HEADER
-            ==================================================== */}
+        
 
         <motion.div
           initial={{
@@ -190,9 +176,7 @@ function OrganizerDashboardPage() {
           </Link>
         </motion.div>
 
-        {/* ====================================================
-            MAIN STATS
-            ==================================================== */}
+        
 
         <div className="mt-9 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <DashboardCard
@@ -232,11 +216,9 @@ function OrganizerDashboardPage() {
           />
         </div>
 
-        {/* ====================================================
-            EVENT STATUS
-            ==================================================== */}
+        
 
-        <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-7">
+        <section className="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-lg font-black text-slate-950 dark:text-white">
@@ -303,12 +285,10 @@ function OrganizerDashboardPage() {
           </div>
         </section>
 
-        {/* ====================================================
-            OCCUPANCY + TOP EVENT
-            ==================================================== */}
+        
 
         <div className="mt-6 grid gap-6 xl:grid-cols-[1fr_.9fr]">
-          {/* OCCUPANCY */}
+          
 
           <motion.section
             initial={{
@@ -322,7 +302,7 @@ function OrganizerDashboardPage() {
             transition={{
               delay: 0.1,
             }}
-            className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-7"
+            className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-7"
           >
             <div className="flex items-center gap-3">
               <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/40 dark:text-brand-400">
@@ -389,7 +369,7 @@ function OrganizerDashboardPage() {
             </div>
           </motion.section>
 
-          {/* TOP EVENT */}
+          
 
           <motion.section
             initial={{
@@ -501,7 +481,7 @@ function OrganizerDashboardPage() {
 
                   <Link
                     to={`/organizer/events/${dashboard.topEvent.id}/attendees`}
-                    className="mt-7 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-brand-50"
+                    className="mt-7 inline-flex items-center gap-2 rounded-xl bg-slate-50 px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-brand-50"
                   >
                     Ver asistentes
 
@@ -534,9 +514,7 @@ function OrganizerDashboardPage() {
           </motion.section>
         </div>
 
-        {/* ====================================================
-            QUICK ACTIONS
-            ==================================================== */}
+        
 
         <section className="mt-6 grid gap-4 sm:grid-cols-2">
           <QuickAction
@@ -557,10 +535,6 @@ function OrganizerDashboardPage() {
     </div>
   );
 }
-
-// ============================================================
-// DASHBOARD CARD
-// ============================================================
 
 interface DashboardCardProps {
   icon: ElementType;
@@ -616,7 +590,7 @@ function DashboardCard({
         opacity: 1,
         y: 0,
       }}
-      className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900 sm:p-6"
+      className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900 sm:p-6"
     >
       <div
         className={`grid h-11 w-11 place-items-center rounded-xl ${variants[variant].icon}`}
@@ -640,10 +614,6 @@ function DashboardCard({
     </motion.div>
   );
 }
-
-// ============================================================
-// EVENT COUNTER
-// ============================================================
 
 function EventCounter({
   label,
@@ -672,10 +642,6 @@ function EventCounter({
     </div>
   );
 }
-
-// ============================================================
-// PROGRESS
-// ============================================================
 
 function ProgressBar({
   value,
@@ -710,10 +676,6 @@ function ProgressBar({
   );
 }
 
-// ============================================================
-// MINI METRIC
-// ============================================================
-
 function MiniMetric({
   title,
   value,
@@ -733,10 +695,6 @@ function MiniMetric({
     </div>
   );
 }
-
-// ============================================================
-// DARK METRIC
-// ============================================================
 
 function DarkMetric({
   label,
@@ -758,10 +716,6 @@ function DarkMetric({
   );
 }
 
-// ============================================================
-// QUICK ACTION
-// ============================================================
-
 function QuickAction({
   to,
   icon: Icon,
@@ -776,7 +730,7 @@ function QuickAction({
   return (
     <Link
       to={to}
-      className="group flex items-center gap-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900 dark:hover:border-brand-900 sm:p-6"
+      className="group flex items-center gap-4 rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900 dark:hover:border-brand-900 sm:p-6"
     >
       <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand-50 text-brand-600 transition group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-950/40 dark:text-brand-400">
         <Icon

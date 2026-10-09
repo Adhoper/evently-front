@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-/*
- * Tailwind v4:
- * permite utilizar dark: cuando el elemento html
- * contiene la clase "dark".
- */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -18,7 +13,6 @@
   --color-brand-700: #1d4ed8;
   --color-brand-800: #1e40af;
   --color-brand-900: #1e3a8a;
-
   --color-accent-300: #fde047;
   --color-accent-400: #facc15;
   --color-accent-500: #eab308;
@@ -30,14 +24,13 @@
   }
 
   body {
-    @apply bg-slate-50 text-slate-950 antialiased;
-    transition:
-      background-color 0.25s ease,
-      color 0.25s ease;
+    @apply bg-slate-100 text-slate-950 antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   .dark body {
-    @apply bg-slate-950 text-slate-100;
+    background: #0b1120;
+    @apply text-slate-100;
   }
 
   button,
@@ -48,6 +41,18 @@
 
   button:disabled {
     cursor: not-allowed;
+  }
+
+  input,
+  textarea,
+  select {
+    color-scheme: light;
+  }
+
+  .dark input,
+  .dark textarea,
+  .dark select {
+    color-scheme: dark;
   }
 
   ::selection {
@@ -61,4 +66,25 @@ html {
 
 html.dark {
   color-scheme: dark;
+}
+
+@layer base {
+  select option {
+    @apply bg-slate-100 text-slate-900;
+  }
+
+  .dark select option {
+    @apply bg-slate-800 text-slate-100;
+  }
+}
+
+#evently-qr-reader {
+  border: 0 !important;
+  background: #070b14 !important;
+}
+
+#evently-qr-reader video {
+  width: 100% !important;
+  min-height: 20rem;
+  object-fit: cover;
 }

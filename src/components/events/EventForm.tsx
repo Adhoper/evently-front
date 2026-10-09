@@ -58,6 +58,8 @@ import {
   resolveImageUrl,
 } from "../../utils/image";
 
+import Select from "../ui/Select";
+
 const MAX_IMAGE_SIZE =
   5 * 1024 * 1024;
 
@@ -136,10 +138,6 @@ function EventForm({
     },
   });
 
-  // ============================================================
-  // CATEGORIES
-  // ============================================================
-
   useEffect(() => {
     let cancelled = false;
 
@@ -173,10 +171,6 @@ function EventForm({
     };
   }, []);
 
-  // ============================================================
-  // LOCAL IMAGE PREVIEW CLEANUP
-  // ============================================================
-
   useEffect(() => {
     return () => {
       if (
@@ -190,10 +184,6 @@ function EventForm({
       }
     };
   }, [localPreviewUrl]);
-
-  // ============================================================
-  // WATCH
-  // ============================================================
 
   const title =
     useWatch({
@@ -234,10 +224,6 @@ function EventForm({
     new Date()
       .toISOString()
       .split("T")[0];
-
-  // ============================================================
-  // IMAGE
-  // ============================================================
 
   const selectImage = (
     file: File
@@ -316,10 +302,6 @@ function EventForm({
     imageInputRef.current?.click();
   };
 
-  // ============================================================
-  // SUBMIT
-  // ============================================================
-
   const submitForm =
     handleSubmit(
       async (data) => {
@@ -339,12 +321,10 @@ function EventForm({
       onSubmit={submitForm}
       className="grid gap-7 xl:grid-cols-[minmax(0,1fr)_360px]"
     >
-      {/* ======================================================
-          FORM
-          ====================================================== */}
+      
 
       <div className="space-y-6">
-        {/* GENERAL */}
+        
 
         <motion.section
           initial={{
@@ -355,7 +335,7 @@ function EventForm({
             opacity: 1,
             y: 0,
           }}
-          className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8"
+          className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8"
         >
           <SectionHeader
             icon={Text}
@@ -423,40 +403,33 @@ function EventForm({
               <div className="relative">
                 <Tag
                   size={18}
-                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                  className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-slate-400"
                 />
 
-                <select
+                <Select
+                  wrapperClassName="mt-2"
                   {...register(
                     "eventCategoryId",
-                    {
-                      valueAsNumber: true,
-                    }
+                    { valueAsNumber: true }
                   )}
-                  disabled={
-                    loadingCategories
-                  }
-                  className={`${inputClasses(
-                    !!errors.eventCategoryId
-                  )} appearance-none pl-11`}
+                  disabled={loadingCategories}
+                  className={`pl-11 ${
+                    errors.eventCategoryId
+                      ? "border-red-300 focus:border-red-500 focus:ring-red-500/10 dark:border-red-800"
+                      : ""
+                  }`}
                 >
                   <option value={0}>
                     {loadingCategories
                       ? "Cargando categorías..."
                       : "Selecciona una categoría"}
                   </option>
-
-                  {categories.map(
-                    (category) => (
-                      <option
-                        key={category.id}
-                        value={category.id}
-                      >
-                        {category.name}
-                      </option>
-                    )
-                  )}
-                </select>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Select>
               </div>
 
               <FieldError
@@ -469,7 +442,7 @@ function EventForm({
           </div>
         </motion.section>
 
-        {/* DATE / LOCATION */}
+        
 
         <motion.section
           initial={{
@@ -483,7 +456,7 @@ function EventForm({
           transition={{
             delay: 0.06,
           }}
-          className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8"
+          className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8"
         >
           <SectionHeader
             icon={CalendarDays}
@@ -581,7 +554,7 @@ function EventForm({
           </div>
         </motion.section>
 
-        {/* CAPACITY / IMAGE */}
+        
 
         <motion.section
           initial={{
@@ -595,7 +568,7 @@ function EventForm({
           transition={{
             delay: 0.12,
           }}
-          className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8"
+          className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8"
         >
           <SectionHeader
             icon={ImagePlus}
@@ -638,7 +611,7 @@ function EventForm({
               />
             </div>
 
-            {/* IMAGE UPLOADER */}
+            
 
             <div>
               <div className="flex flex-wrap items-end justify-between gap-2">
@@ -688,7 +661,7 @@ function EventForm({
                         onClick={
                           openImagePicker
                         }
-                        className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-xs font-black text-slate-950 shadow-lg transition hover:bg-slate-100"
+                        className="inline-flex items-center gap-2 rounded-xl bg-slate-50 px-4 py-2.5 text-xs font-black text-slate-950 shadow-lg transition hover:bg-slate-100"
                       >
                         <RefreshCw
                           size={14}
@@ -788,9 +761,7 @@ function EventForm({
         </motion.section>
       </div>
 
-      {/* ======================================================
-          PREVIEW / ACTIONS
-          ====================================================== */}
+      
 
       <aside className="space-y-5 xl:sticky xl:top-6 xl:self-start">
         <motion.div
@@ -802,7 +773,7 @@ function EventForm({
             opacity: 1,
             x: 0,
           }}
-          className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900"
+          className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm dark:border-slate-800 dark:bg-slate-900"
         >
           <div className="aspect-video overflow-hidden bg-linear-to-br from-brand-600 via-brand-700 to-slate-950">
             {previewImageUrl ? (
@@ -896,10 +867,6 @@ function EventForm({
   );
 }
 
-// ============================================================
-// REUSABLE UI
-// ============================================================
-
 interface SectionHeaderProps {
   icon: ElementType;
   title: string;
@@ -976,7 +943,7 @@ function inputClasses(
     w-full
     rounded-xl
     border
-    bg-slate-50/70
+    bg-slate-100
     px-4
     py-3.5
     text-sm
@@ -986,7 +953,7 @@ function inputClasses(
     duration-200
     placeholder:text-slate-400
     hover:border-slate-300
-    focus:bg-white
+    focus:bg-slate-50
     focus:ring-4
     dark:bg-slate-800/70
     dark:text-slate-50

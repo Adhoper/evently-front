@@ -48,10 +48,6 @@ function MyEventsPage() {
 
   const [processing, setProcessing] = useState(false);
 
-  // ============================================================
-  // LOAD EVENTS
-  // ============================================================
-
   const loadEvents = async () => {
     try {
       const data = await getMyEvents();
@@ -93,10 +89,6 @@ function MyEventsPage() {
     };
   }, []);
 
-  // ============================================================
-  // MODAL
-  // ============================================================
-
   const openPublishModal = (event: Event) => {
     setSelectedEvent(event);
     setModalAction("publish");
@@ -115,10 +107,6 @@ function MyEventsPage() {
     setSelectedEvent(null);
     setModalAction(null);
   };
-
-  // ============================================================
-  // PUBLISH / CANCEL
-  // ============================================================
 
   const handleConfirmAction = async () => {
     if (!selectedEvent || !modalAction) {
@@ -165,15 +153,11 @@ function MyEventsPage() {
     }
   };
 
-  // ============================================================
-  // RENDER
-  // ============================================================
-
   return (
     <>
       <div className="px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
         <div className="mx-auto max-w-7xl">
-          {/* HEADER */}
+          
 
           <motion.div
             initial={{
@@ -209,14 +193,14 @@ function MyEventsPage() {
             </Link>
           </motion.div>
 
-          {/* LOADING */}
+          
 
           {loading ? (
             <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {[1, 2, 3].map((item) => (
                 <div
                   key={item}
-                  className="overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
+                  className="overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 shadow-sm"
                 >
                   <div className="aspect-16/8 animate-pulse bg-slate-200 dark:bg-slate-700" />
 
@@ -233,9 +217,6 @@ function MyEventsPage() {
               ))}
             </div>
           ) : events.length === 0 ? (
-            // =================================================
-            // EMPTY STATE
-            // =================================================
 
             <motion.div
               initial={{
@@ -246,7 +227,7 @@ function MyEventsPage() {
                 opacity: 1,
                 y: 0,
               }}
-              className="mt-10 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-6 py-20 text-center shadow-sm"
+              className="mt-10 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-6 py-20 text-center shadow-sm"
             >
               <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-50 dark:bg-brand-900/25 text-brand-600">
                 <CalendarDays size={28} />
@@ -269,9 +250,6 @@ function MyEventsPage() {
               </Link>
             </motion.div>
           ) : (
-            // =================================================
-            // EVENTS GRID
-            // =================================================
 
             <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {events.map((event, index) => (
@@ -291,9 +269,9 @@ function MyEventsPage() {
                   whileHover={{
                     y: -5,
                   }}
-                  className="group overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm transition-shadow duration-300 hover:shadow-xl"
+                  className="group overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 shadow-sm transition-shadow duration-300 hover:shadow-xl"
                 >
-                  {/* IMAGE */}
+                  
 
                   <div className="relative aspect-16/8 overflow-hidden bg-slate-900">
                     {event.imageUrl ? (
@@ -314,14 +292,14 @@ function MyEventsPage() {
                       </div>
                     )}
 
-                    {/* STATUS */}
+                    
 
                     <div className="absolute left-4 top-4">
                       <EventStatusBadge status={event.status} />
                     </div>
                   </div>
 
-                  {/* CONTENT */}
+                  
 
                   <div className="p-6">
                     <span className="text-xs font-black uppercase tracking-[0.15em] text-brand-600">
@@ -332,7 +310,7 @@ function MyEventsPage() {
                       {event.title}
                     </h2>
 
-                    {/* DETAILS */}
+                    
 
                     <div className="mt-5 space-y-3 text-sm text-slate-500 dark:text-slate-400">
                       <div className="flex items-center gap-2.5">
@@ -370,10 +348,10 @@ function MyEventsPage() {
                       </div>
                     </div>
 
-                    {/* ACTIONS */}
+                    
 
                     <div className="mt-6 flex flex-wrap gap-2 border-t border-slate-100 pt-5">
-                      {/* DRAFT */}
+                      
 
                       {event.status === "Draft" && (
                         <>
@@ -384,7 +362,6 @@ function MyEventsPage() {
                             <Edit3 size={15} />
                             Editar
                           </Link>
-
 
                           <button
                             type="button"
@@ -397,7 +374,7 @@ function MyEventsPage() {
                         </>
                       )}
 
-                      {/* PUBLISHED */}
+                      
 
                       {event.status === "Published" && (
                         <>
@@ -438,7 +415,7 @@ function MyEventsPage() {
                         </>
                       )}
 
-                      {/* CANCELLED */}
+                      
 
                       {event.status === "Cancelled" && (
                         <div className="w-full rounded-xl bg-slate-50 dark:bg-slate-950 px-4 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
@@ -446,7 +423,7 @@ function MyEventsPage() {
                         </div>
                       )}
 
-                      {/* FINISHED */}
+                      
 
                       {event.status === "Finished" && (
                         <div className="w-full rounded-xl bg-slate-50 dark:bg-slate-950 px-4 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
@@ -462,9 +439,7 @@ function MyEventsPage() {
         </div>
       </div>
 
-      {/* ======================================================
-          CONFIRMATION MODAL
-          ====================================================== */}
+      
 
       <ConfirmModal
         open={selectedEvent !== null && modalAction !== null}

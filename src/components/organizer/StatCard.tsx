@@ -42,7 +42,7 @@ const variants = {
 
   slate: {
     container:
-      "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800",
+      "bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800",
     icon:
       "bg-slate-950 text-white shadow-slate-900/20",
   },

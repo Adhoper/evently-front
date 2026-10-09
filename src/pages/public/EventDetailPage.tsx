@@ -106,10 +106,6 @@ function EventDetailPage() {
     setReserving,
   ] = useState(false);
 
-  // ============================================================
-  // LOAD EVENT
-  // ============================================================
-
   useEffect(() => {
     if (!id) {
       return;
@@ -180,10 +176,6 @@ function EventDetailPage() {
     id,
     user,
   ]);
-
-  // ============================================================
-  // RESERVE
-  // ============================================================
 
   const handleReserve =
     async () => {
@@ -273,7 +265,7 @@ function EventDetailPage() {
     !event
   ) {
     return (
-      <main className="flex min-h-[65vh] items-center justify-center bg-slate-50 px-4 py-16 dark:bg-slate-950">
+      <main className="flex min-h-[65vh] items-center justify-center bg-slate-100 px-4 py-16 dark:bg-[#0b1120]">
         <div className="max-w-lg text-center">
           <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-50 text-brand-600 dark:bg-brand-950/40 dark:text-brand-400">
             <CalendarDays
@@ -325,12 +317,10 @@ function EventDetailPage() {
     event.availableSpots <= 10;
 
   return (
-    <main className="bg-slate-50 pb-20 dark:bg-slate-950">
-      {/* ======================================================
-          IMAGE
-          ====================================================== */}
+    <main className="bg-slate-100 pb-20 dark:bg-[#0b1120]">
+      
 
-      <section className="bg-white pt-5 dark:bg-slate-950 sm:pt-8">
+      <section className="bg-slate-50 pt-5 dark:bg-slate-950 sm:pt-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
             to="/events"
@@ -386,11 +376,9 @@ function EventDetailPage() {
         </div>
       </section>
 
-      {/* ======================================================
-          CONTENT
-          ====================================================== */}
+      
 
-      <section className="bg-white pb-12 pt-8 dark:bg-slate-950 sm:pt-10">
+      <section className="bg-slate-50 pb-12 pt-8 dark:bg-slate-950 sm:pt-10">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:px-8">
           <motion.div
             initial={{
@@ -467,9 +455,7 @@ function EventDetailPage() {
             </div>
           </motion.div>
 
-          {/* ==================================================
-              TICKET
-              ================================================== */}
+          
 
           <motion.aside
             initial={{
@@ -482,7 +468,7 @@ function EventDetailPage() {
             }}
             className="lg:sticky lg:top-24 lg:self-start"
           >
-            <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_60px_rgba(15,23,42,.1)] dark:border-slate-800 dark:bg-slate-900">
+            <div className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-[0_20px_60px_rgba(15,23,42,.1)] dark:border-slate-800 dark:bg-slate-900">
               <div className="bg-slate-950 p-6 text-white">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-accent-400 text-slate-950">
                   <TicketIcon
@@ -518,7 +504,7 @@ function EventDetailPage() {
                   />
                 </div>
 
-                {/* CAPACITY */}
+                
 
                 <div className="mt-6">
                   <div className="flex items-center justify-between text-xs font-bold">
@@ -562,7 +548,7 @@ function EventDetailPage() {
                   </div>
                 </div>
 
-                {/* BUTTON */}
+                
 
                 {existingTicket ? (
                   <Link

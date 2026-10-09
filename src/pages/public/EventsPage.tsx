@@ -15,6 +15,7 @@ import {
 } from "motion/react";
 
 import EventCard from "../../components/EventCard";
+import Select from "../../components/ui/Select";
 
 import {
   EmptyState,
@@ -55,10 +56,6 @@ function EventsPage() {
     setCategory,
   ] = useState("all");
 
-  // ============================================================
-  // INITIAL LOAD
-  // ============================================================
-
   useEffect(() => {
     let cancelled = false;
 
@@ -95,10 +92,6 @@ function EventsPage() {
     };
   }, []);
 
-  // ============================================================
-  // RETRY
-  // ============================================================
-
   const handleRetry =
     async () => {
       try {
@@ -122,10 +115,6 @@ function EventsPage() {
       }
     };
 
-  // ============================================================
-  // CATEGORIES
-  // ============================================================
-
   const categories =
     useMemo(() => {
       return Array.from(
@@ -137,10 +126,6 @@ function EventsPage() {
         )
       ).sort();
     }, [events]);
-
-  // ============================================================
-  // FILTER EVENTS
-  // ============================================================
 
   const filteredEvents =
     useMemo(() => {
@@ -190,17 +175,11 @@ function EventsPage() {
     setCategory("all");
   };
 
-  // ============================================================
-  // RENDER
-  // ============================================================
-
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
-      {/* ======================================================
-          HEADER
-          ====================================================== */}
+    <main className="min-h-screen bg-slate-100 dark:bg-[#0b1120]">
+      
 
-      <section className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+      <section className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
           <motion.div
             initial={{
@@ -229,12 +208,10 @@ function EventsPage() {
             </p>
           </motion.div>
 
-          {/* ==================================================
-              SEARCH / FILTERS
-              ================================================== */}
+          
 
           <div className="mt-9 grid gap-3 lg:grid-cols-[1fr_260px]">
-            {/* SEARCH */}
+            
 
             <div className="relative">
               <Search
@@ -254,19 +231,20 @@ function EventsPage() {
                   )
                 }
                 placeholder="Buscar evento o ubicación..."
-                className="h-13 w-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 pl-12 pr-4 text-sm font-medium text-slate-950 dark:text-slate-50 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
+                className="h-13 w-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 pl-12 pr-4 text-sm font-medium text-slate-950 dark:text-slate-50 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-slate-50 dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
               />
             </div>
 
-            {/* CATEGORY */}
+            
 
             <div className="relative">
               <SlidersHorizontal
                 size={18}
-                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-brand-500"
+                className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-brand-500"
               />
 
-              <select
+              <Select
+                className="!h-13 pl-12"
                 value={
                   category
                 }
@@ -278,7 +256,6 @@ function EventsPage() {
                       .value
                   )
                 }
-                className="h-13 w-full cursor-pointer appearance-none rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 pl-12 pr-10 text-sm font-bold text-slate-700 dark:text-slate-200 outline-none transition hover:border-slate-300 focus:border-brand-500 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-brand-500/10"
               >
                 <option value="all">
                   Todas las categorías
@@ -300,15 +277,13 @@ function EventsPage() {
                     </option>
                   )
                 )}
-              </select>
+              </Select>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ======================================================
-          EVENTS
-          ====================================================== */}
+      
 
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -413,10 +388,6 @@ function EventsPage() {
   );
 }
 
-// ============================================================
-// SKELETON
-// ============================================================
-
 function EventsPageSkeleton() {
   return (
     <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -425,7 +396,7 @@ function EventsPageSkeleton() {
       ].map((item) => (
         <div
           key={item}
-          className="overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
+          className="overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 shadow-sm"
         >
           <div className="aspect-16/10 animate-pulse bg-slate-200 dark:bg-slate-700" />
 

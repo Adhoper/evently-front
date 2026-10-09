@@ -85,7 +85,7 @@ function ConfirmModal({
               transition={{
                 duration: 0.2,
               }}
-              className="pointer-events-auto w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl"
+              className="pointer-events-auto w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 shadow-2xl"
             >
               <div className="p-6 sm:p-7">
                 <div className="flex items-start justify-between gap-5">
