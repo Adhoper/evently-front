@@ -17,7 +17,6 @@
           document.documentElement.classList.toggle("dark", shouldUseDark);
           document.documentElement.style.colorScheme = shouldUseDark ? "dark" : "light";
         } catch {
-          // Si localStorage no está disponible, la app continúa en modo claro.
         }
       })();
     </script>

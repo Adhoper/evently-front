@@ -8,6 +8,7 @@ import {
   MapPin,
   Rocket,
   Trash2,
+  UserRoundCog,
   Users,
 } from "lucide-react";
 
@@ -363,6 +364,14 @@ function MyEventsPage() {
                             Editar
                           </Link>
 
+                          <Link
+                            to={`/organizer/events/${event.id}/team`}
+                            className="inline-flex items-center gap-2 rounded-xl border border-violet-200 bg-violet-50 px-3.5 py-2.5 text-xs font-black text-violet-700 transition hover:bg-violet-100 dark:border-violet-900/60 dark:bg-violet-950/30 dark:text-violet-300"
+                          >
+                            <UserRoundCog size={15} />
+                            Equipo
+                          </Link>
+
                           <button
                             type="button"
                             onClick={() => openPublishModal(event)}
@@ -402,6 +411,14 @@ function MyEventsPage() {
                           >
                             <Users size={15} />
                             Asistentes
+                          </Link>
+
+                          <Link
+                            to={`/organizer/events/${event.id}/team`}
+                            className="inline-flex items-center gap-2 rounded-xl border border-violet-200 bg-violet-50 px-3.5 py-2.5 text-xs font-black text-violet-700 transition hover:bg-violet-100 dark:border-violet-900/60 dark:bg-violet-950/30 dark:text-violet-300"
+                          >
+                            <UserRoundCog size={15} />
+                            Equipo
                           </Link>
 
                           <button

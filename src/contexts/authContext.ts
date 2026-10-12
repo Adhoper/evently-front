@@ -13,6 +13,7 @@ export interface AuthContextType {
   token: string | null;
   loading: boolean;
   isAuthenticated: boolean;
+  hasStaffAccess: boolean;
 
   loginUser: (
     data: LoginRequest

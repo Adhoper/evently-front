@@ -18,6 +18,7 @@ import CreateEventPage from "../components/organizer/CreateEventPage";
 import EditEventPage from "../components/organizer/EditEventPage";
 import CheckInPage from "../components/organizer/CheckInPage";
 import EventAttendeesPage from "../pages/organizer/EventAttendeesPage";
+import EventTeamPage from "../pages/organizer/EventTeamPage";
 import AdminDashboardPage from "../pages/admin/AdminDashboardPage";
 import AdminUsersPage from "../pages/admin/AdminUsersPage";
 import AdminEventsPage from "../pages/admin/AdminEventsPage";
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "staff/check-in",
+        element: (
+          <ProtectedRoute>
+            <CheckInPage />
+          </ProtectedRoute>
+        ),
+      },
       { path: "*", element: <NotFoundPage /> },
     ],
   },
@@ -76,6 +85,7 @@ const router = createBrowserRouter([
       { path: "events/create", element: <CreateEventPage /> },
       { path: "events/:id/edit", element: <EditEventPage /> },
       { path: "events/:id/attendees", element: <EventAttendeesPage /> },
+      { path: "events/:id/team", element: <EventTeamPage /> },
       { path: "check-in", element: <CheckInPage /> },
     ],
   },

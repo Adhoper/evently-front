@@ -7,6 +7,7 @@ import {
   LogIn,
   LogOut,
   Menu,
+  QrCode,
   ShieldCheck,
   Sparkles,
   Ticket,
@@ -19,7 +20,7 @@ import { useAuth } from "../hooks/useAuth";
 import ThemeToggle from "./ui/ThemeToggle";
 
 function Navbar() {
-  const { user, logout, loading } = useAuth();
+  const { user, logout, loading, hasStaffAccess } = useAuth();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -78,6 +79,13 @@ function Navbar() {
                   <Ticket size={16} />
                   <span className="hidden lg:inline">Mis entradas</span>
                 </Link>
+
+                {hasStaffAccess && user.role !== "Organizer" && (
+                  <Link to="/staff/check-in" className="inline-flex items-center gap-2 rounded-xl bg-emerald-100 px-3 py-2.5 text-sm font-black text-emerald-800 transition hover:bg-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:hover:bg-emerald-950/70 lg:px-4">
+                    <QrCode size={16} />
+                    <span className="hidden lg:inline">Check-in</span>
+                  </Link>
+                )}
 
                 {user.role === "Organizer" && (
                   <Link to="/organizer" className="inline-flex items-center gap-2 rounded-xl bg-brand-100 px-3 py-2.5 text-sm font-black text-brand-800 transition hover:bg-brand-200 dark:bg-brand-950/50 dark:text-brand-300 dark:hover:bg-brand-950/80 lg:px-4">
@@ -144,6 +152,7 @@ function Navbar() {
                   <MobileLink to="/events" icon={CalendarDays} label="Eventos" onClick={closeMobile} />
                   {user && <MobileLink to="/tickets" icon={Ticket} label="Mis entradas" onClick={closeMobile} />}
                   {user && <MobileLink to="/account" icon={User} label="Mi cuenta" onClick={closeMobile} />}
+                  {hasStaffAccess && user?.role !== "Organizer" && <MobileLink to="/staff/check-in" icon={QrCode} label="Check-in asignado" onClick={closeMobile} />}
                   {user?.role === "Organizer" && <MobileLink to="/organizer" icon={LayoutDashboard} label="Panel de organizador" onClick={closeMobile} />}
                   {user?.role === "Admin" && <MobileLink to="/admin" icon={ShieldCheck} label="Panel administrativo" onClick={closeMobile} />}
                 </nav>

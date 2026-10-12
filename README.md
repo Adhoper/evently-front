@@ -29,6 +29,7 @@ La aplicación ofrece experiencias diferentes para usuarios, organizadores y adm
 - 👥 Consulta de asistentes.
 - 📊 Estadísticas de reservas, ocupación y asistencia.
 - 📷 Check-in mediante cámara y código QR.
+- 👥 Equipo por evento para delegar el check-in a otros usuarios.
 - ⌨️ Check-in manual mediante código.
 - 🛡️ Panel administrativo.
 - 👥 Gestión de usuarios y roles.
@@ -44,7 +45,7 @@ Puede explorar eventos, reservar entradas, consultar sus tickets digitales y can
 
 ### Organizador
 
-Puede crear y administrar eventos, subir imágenes, consultar asistentes, visualizar estadísticas y realizar check-in.
+Puede crear y administrar eventos, subir imágenes, consultar asistentes, visualizar estadísticas, gestionar el equipo del evento y realizar check-in.
 
 ### Administrador
 

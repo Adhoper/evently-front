@@ -299,9 +299,7 @@ function ResetPasswordPage() {
           }
           className="mt-8 space-y-5"
         >
-          {/* PASSWORD */}
-
-          <div>
+<div>
             <label
               htmlFor="password"
               className="text-sm font-black text-slate-700 dark:text-slate-300"
@@ -365,10 +363,7 @@ function ResetPasswordPage() {
               </p>
             )}
           </div>
-
-          {/* RULES */}
-
-          <div className="grid gap-2 rounded-2xl bg-slate-100 p-4 dark:bg-slate-950 sm:grid-cols-2">
+<div className="grid gap-2 rounded-2xl bg-slate-100 p-4 dark:bg-slate-950 sm:grid-cols-2">
             <PasswordRule
               valid={
                 rules.length
@@ -397,10 +392,7 @@ function ResetPasswordPage() {
               text="Un número"
             />
           </div>
-
-          {/* CONFIRM PASSWORD */}
-
-          <div>
+<div>
             <label
               htmlFor="confirmPassword"
               className="text-sm font-black text-slate-700 dark:text-slate-300"

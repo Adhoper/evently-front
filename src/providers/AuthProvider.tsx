@@ -14,6 +14,10 @@ import {
   AuthContext,
 } from "../contexts/authContext";
 
+import {
+  getMyStaffEvents,
+} from "../services/staffService";
+
 import type {
   LoginRequest,
   RegisterRequest,
@@ -40,6 +44,28 @@ function AuthProvider({
   const [loading, setLoading] =
     useState(true);
 
+  const [hasStaffAccess, setHasStaffAccess] =
+    useState(false);
+
+  const refreshStaffAccess =
+    async () => {
+      try {
+        const assignedEvents =
+          await getMyStaffEvents();
+
+        setHasStaffAccess(
+          assignedEvents.length > 0
+        );
+      } catch (error) {
+        console.error(
+          "No fue posible consultar los eventos asignados.",
+          error
+        );
+
+        setHasStaffAccess(false);
+      }
+    };
+
   useEffect(() => {
     const restoreSession =
       async () => {
@@ -59,6 +85,22 @@ function AuthProvider({
 
           setUser(currentUser);
           setToken(storedToken);
+
+          try {
+            const assignedEvents =
+              await getMyStaffEvents();
+
+            setHasStaffAccess(
+              assignedEvents.length > 0
+            );
+          } catch (staffError) {
+            console.error(
+              "No fue posible consultar los eventos asignados.",
+              staffError
+            );
+
+            setHasStaffAccess(false);
+          }
         } catch (error) {
           console.error(
             "No fue posible restaurar la sesión.",
@@ -71,6 +113,7 @@ function AuthProvider({
 
           setUser(null);
           setToken(null);
+          setHasStaffAccess(false);
         } finally {
           setLoading(false);
         }
@@ -102,6 +145,8 @@ function AuthProvider({
       response.token,
       response.user
     );
+
+    await refreshStaffAccess();
   };
 
   const registerUser = async (
@@ -114,6 +159,8 @@ function AuthProvider({
       response.token,
       response.user
     );
+
+    setHasStaffAccess(false);
   };
 
   const logout = () => {
@@ -123,6 +170,7 @@ function AuthProvider({
 
     setToken(null);
     setUser(null);
+    setHasStaffAccess(false);
   };
 
   const becomeOrganizerUser =
@@ -133,6 +181,8 @@ function AuthProvider({
         response.token,
         response.user
       );
+
+      await refreshStaffAccess();
     };
 
   return (
@@ -143,6 +193,7 @@ function AuthProvider({
         loading,
         isAuthenticated:
           user !== null,
+        hasStaffAccess,
         loginUser,
         registerUser,
         logout,

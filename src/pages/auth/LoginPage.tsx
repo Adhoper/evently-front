@@ -132,9 +132,7 @@ function LoginPage() {
 
   return (
     <main className="relative flex min-h-[calc(100dvh-72px)] items-center overflow-hidden bg-slate-100 px-4 py-8 dark:bg-slate-950 sm:px-6 sm:py-12 lg:py-16">
-      {/* BACKGROUND */}
-
-      <motion.div
+<motion.div
         animate={{
           x: [0, 25, 0],
           y: [0, -15, 0],
@@ -159,13 +157,8 @@ function LoginPage() {
         }}
         className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-accent-300/15 blur-3xl dark:bg-accent-400/5"
       />
-
-      {/* CARD */}
-
-      <div className="relative mx-auto grid w-full max-w-md overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-50 shadow-[0_24px_70px_rgba(15,23,42,.12)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_24px_70px_rgba(0,0,0,.35)] lg:max-w-6xl lg:grid-cols-[.9fr_1.1fr] lg:rounded-4xl">
-        {/* DESKTOP VISUAL */}
-
-        <div className="relative hidden overflow-hidden bg-linear-to-br from-brand-600 via-brand-800 to-slate-950 p-10 text-white lg:flex lg:flex-col">
+<div className="relative mx-auto grid w-full max-w-md overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-50 shadow-[0_24px_70px_rgba(15,23,42,.12)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_24px_70px_rgba(0,0,0,.35)] lg:max-w-6xl lg:grid-cols-[.9fr_1.1fr] lg:rounded-4xl">
+<div className="relative hidden overflow-hidden bg-linear-to-br from-brand-600 via-brand-800 to-slate-950 p-10 text-white lg:flex lg:flex-col">
           <div className="absolute -right-24 -top-24 h-60 w-60 rounded-full bg-accent-400/20 blur-3xl" />
 
           <div className="absolute -bottom-20 -left-20 h-52 w-52 rounded-full bg-brand-400/20 blur-3xl" />
@@ -210,10 +203,7 @@ function LoginPage() {
             </div>
           </div>
         </div>
-
-        {/* FORM */}
-
-        <motion.div
+<motion.div
           initial={{
             opacity: 0,
             y: 15,
@@ -258,9 +248,7 @@ function LoginPage() {
             }
             className="space-y-5"
           >
-            {/* EMAIL */}
-
-            <div>
+<div>
               <label
                 htmlFor="email"
                 className="text-sm font-black text-slate-700 dark:text-slate-300"
@@ -302,10 +290,7 @@ function LoginPage() {
                 </motion.p>
               )}
             </div>
-
-            {/* PASSWORD */}
-
-            <div>
+<div>
               <div className="flex items-center justify-between gap-3">
                 <label
                   htmlFor="password"
@@ -388,10 +373,7 @@ function LoginPage() {
                 </motion.p>
               )}
             </div>
-
-            {/* ERROR */}
-
-            {serverError && (
+{serverError && (
               <motion.div
                 initial={{
                   opacity: 0,
@@ -406,10 +388,7 @@ function LoginPage() {
                 {serverError}
               </motion.div>
             )}
-
-            {/* SUBMIT */}
-
-            <motion.button
+<motion.button
               whileHover={
                 isSubmitting
                   ? undefined

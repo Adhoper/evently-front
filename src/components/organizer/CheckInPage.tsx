@@ -1,24 +1,53 @@
 import { useEffect, useRef, useState } from "react";
-import { Camera, CheckCircle2, Keyboard, LoaderCircle, Mail, QrCode, ScanLine, ShieldCheck, StopCircle, UserRound, XCircle } from "lucide-react";
+import { CalendarDays, Camera, CheckCircle2, Keyboard, LoaderCircle, Mail, MapPin, QrCode, ScanLine, ShieldCheck, StopCircle, UserRound, XCircle } from "lucide-react";
 import { motion } from "motion/react";
+import { useLocation } from "react-router-dom";
 import { Html5Qrcode } from "html5-qrcode";
 import { toast } from "sonner";
 import axios from "axios";
 import { checkInTicket } from "../../services/ticketService";
 import type { CheckInResult } from "../../types/ticket";
+import { getMyStaffEvents } from "../../services/staffService";
+import type { StaffEvent } from "../../types/staff";
+import { formatEventDate } from "../../utils/date";
+import { resolveImageUrl } from "../../utils/image";
 
 function CheckInPage() {
+  const location = useLocation();
+  const isStaffRoute = location.pathname.startsWith("/staff");
   const [code, setCode] = useState("");
   const [processing, setProcessing] = useState(false);
   const [scannerActive, setScannerActive] = useState(false);
   const [result, setResult] = useState<CheckInResult | null>(null);
   const [lastError, setLastError] = useState<string | null>(null);
+  const [assignedEvents, setAssignedEvents] = useState<StaffEvent[]>([]);
+  const [loadingAssignments, setLoadingAssignments] = useState(true);
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const processingScanRef = useRef(false);
 
   useEffect(() => {
     return () => {
       scannerRef.current?.stop().catch(() => undefined);
+    };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    getMyStaffEvents()
+      .then((events) => {
+        if (active) setAssignedEvents(events);
+      })
+      .catch((error) => {
+        console.error(error);
+        if (active) setAssignedEvents([]);
+      })
+      .finally(() => {
+        if (active) setLoadingAssignments(false);
+      });
+
+    return () => {
+      active = false;
     };
   }, []);
 
@@ -92,13 +121,60 @@ function CheckInPage() {
       <div className="mx-auto max-w-7xl">
         <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <span className="text-xs font-black uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">Acceso al evento</span>
+            <span className="text-xs font-black uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">{isStaffRoute ? "Equipo del evento" : "Acceso al evento"}</span>
             <h1 className="mt-2 text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50 sm:text-4xl">Check-in</h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400 sm:text-base">Valida entradas mediante cámara o código manual. Evently verifica automáticamente el evento, el estado del ticket y si ya fue utilizado.</p>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400 sm:text-base">{isStaffRoute ? "Escanea entradas de los eventos en los que fuiste agregado como miembro del equipo." : "Valida entradas mediante cámara o código manual. Evently verifica automáticamente el evento, el estado del ticket y si ya fue utilizado."}</p>
           </div>
           <div className="inline-flex w-fit items-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-100 px-4 py-3 text-sm font-bold text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:text-emerald-300"><ShieldCheck size={18} />Validación segura</div>
         </motion.div>
 
+        {(isStaffRoute || assignedEvents.length > 0) && (
+          <section className="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-6">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="font-black text-slate-950 dark:text-slate-50">Eventos asignados</h2>
+                <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Solo puedes validar entradas de estos eventos o de eventos que te pertenezcan.</p>
+              </div>
+              {!loadingAssignments && (
+                <span className="rounded-full bg-brand-100 px-3 py-1 text-xs font-black text-brand-700 dark:bg-brand-950/40 dark:text-brand-300">{assignedEvents.length}</span>
+              )}
+            </div>
+
+            {loadingAssignments ? (
+              <div className="mt-5 flex items-center gap-3 text-sm font-semibold text-slate-500 dark:text-slate-400"><LoaderCircle size={18} className="animate-spin" />Cargando asignaciones...</div>
+            ) : assignedEvents.length === 0 ? (
+              <div className="mt-5 rounded-2xl border border-dashed border-slate-300 px-5 py-8 text-center dark:border-slate-700">
+                <QrCode className="mx-auto text-slate-400" size={28} />
+                <p className="mt-3 font-black text-slate-800 dark:text-slate-200">No tienes eventos asignados</p>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">El organizador debe agregarte al equipo usando el correo de tu cuenta de Evently.</p>
+              </div>
+            ) : (
+              <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                {assignedEvents.map((eventItem) => (
+                  <div key={eventItem.eventId} className="overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
+                    {eventItem.imageUrl && (
+                      <img src={resolveImageUrl(eventItem.imageUrl) ?? ""} alt={eventItem.title} className="h-28 w-full object-cover" />
+                    )}
+                    <div className="p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-brand-600 dark:text-brand-400">{eventItem.categoryName}</span>
+                        <span className={`rounded-full px-2.5 py-1 text-[10px] font-black uppercase ${eventItem.status === "Published" ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300" : "bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300"}`}>{eventItem.status === "Published" ? "Disponible" : "Borrador"}</span>
+                      </div>
+                      <h3 className="mt-2 line-clamp-2 font-black text-slate-900 dark:text-slate-100">{eventItem.title}</h3>
+                      <div className="mt-3 space-y-2 text-xs text-slate-500 dark:text-slate-400">
+                        <p className="flex items-center gap-2"><CalendarDays size={14} />{formatEventDate(eventItem.date, { day: "2-digit", month: "short", year: "numeric" })} · {eventItem.startTime.slice(0, 5)}</p>
+                        <p className="flex items-center gap-2"><MapPin size={14} /><span className="line-clamp-1">{eventItem.location}</span></p>
+                        <p className="font-semibold">Organiza: {eventItem.organizerName}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {!(isStaffRoute && !loadingAssignments && assignedEvents.length === 0) && (
         <div className="mt-9 grid gap-6 xl:grid-cols-[1.15fr_.85fr]">
           <section className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <div className="border-b border-slate-200 p-5 dark:border-slate-800 sm:p-6">
@@ -164,6 +240,7 @@ function CheckInPage() {
             )}
           </div>
         </div>
+        )}
       </div>
     </div>
   );
